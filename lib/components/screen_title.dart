@@ -5,9 +5,8 @@ import '../managers/menu_state.dart';
 
 class ScreenTitle extends RecoilWidget{
   final String title;
-  final Widget screen;
 
-  ScreenTitle(this.title, this.screen, {super.key, });
+  ScreenTitle(this.title, {super.key, });
 
   final menuSelected = useRecoilState(menuState);
 
@@ -16,10 +15,6 @@ class ScreenTitle extends RecoilWidget{
     return TextButton(
       onPressed: () {
         menuSelected.setData(title);
-        if (screen != null) {
-          Navigator.push(
-            context, MaterialPageRoute(builder: (context) => screen));
-        }
       },
       child: Text(title,
         style: TextStyle(

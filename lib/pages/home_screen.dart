@@ -9,12 +9,16 @@ class HomeScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Text('Home screen'),
-        CardComponent(cardTitle: 'Card Title', status: Status.Todo, recentUpdateDate: '2024/06/08',)
-      ],
+    return Container(
+      child: const Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Home screen'),
+          // CardComponent(cardTitle: 'Card Title', status: Status.Todo, recentUpdateDate: '2024/06/08',)
+        ],
 
+      ),
     );
   }
 }
