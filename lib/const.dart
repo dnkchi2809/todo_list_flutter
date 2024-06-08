@@ -1,0 +1,1 @@
+enum Status {Todo, InProgress, Pending, Done }
