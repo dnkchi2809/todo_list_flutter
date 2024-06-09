@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/const.dart';
 
-import '../hook/color_from_status.dart';
+import '../../hook/color_from_status.dart';
 
 class CardComponent extends StatelessWidget{
   final String cardTitle;

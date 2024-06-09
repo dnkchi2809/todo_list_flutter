@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
-import 'package:todo_list_flutter/components/body.dart';
+import 'package:todo_list_flutter/components/app_bar.dart';
+import 'package:todo_list_flutter/components/hooks/body.dart';
 
-import 'components/menu.dart';
+import 'components/hooks/menu.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
     return RecoilProvider(
       builder: (context, child) {
         return MaterialApp(
-          title: 'Flutter Recoil Demo',
-          home: Column(
-            children: [
-              const Expanded(child: Menu()),
-              Expanded(child: Body()),
-            ],
+          home: Scaffold(
+            appBar: new AppBar(
+              title: const AppBarWidget(),
+            ),
+            body: const Body(),
+            drawer: const Menu(),
           ),
           debugShowCheckedModeBanner: false,
         );

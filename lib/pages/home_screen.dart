@@ -1,24 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../components/card_component.dart';
-import '../components/screen_title.dart';
-import '../const.dart';
+import '../components/app_bar.dart';
+import '../components/drawer.dart';
+import '../components/hooks/menu.dart';
 
-class HomeScreen extends StatelessWidget{
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Home screen'),
-          // CardComponent(cardTitle: 'Card Title', status: Status.Todo, recentUpdateDate: '2024/06/08',)
-        ],
-
-      ),
+    return const Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Home screen'),
+        // CardComponent(cardTitle: 'Card Title', status: Status.Todo, recentUpdateDate: '2024/06/08',)
+      ],
     );
   }
 }

@@ -12,8 +12,8 @@ class BodyContent extends RecoilWidget{
 
   @override
   Widget build(BuildContext context) {
-    return new Container(child: menuSelected.data == 'Folders'
+    return menuSelected.data == 'Folders'
         ? const FoldersScreen()
-        : const HomeScreen());
+        : const HomeScreen();
   }
 }
