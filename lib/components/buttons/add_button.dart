@@ -29,7 +29,7 @@ class AddButton extends StatelessWidget{
             borderRadius: BorderRadius.circular(10)),
       ),
       icon: const Icon(
-        Icons.add_task,
+        Icons.add,
         size: 30,
         color: Colors.black54,
       ),
