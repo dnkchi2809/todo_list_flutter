@@ -1,13 +1,52 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../classes/Folder.dart';
 import '../modal_title.dart';
 
-class AddNewFolderModal extends StatelessWidget {
-  const AddNewFolderModal({super.key});
+class AddNewFolderModal extends StatefulWidget {
+  AddNewFolderModal({super.key});
+
+  @override
+  _AddNewFolderModalState createState() => _AddNewFolderModalState();
+}
+
+class _AddNewFolderModalState extends State<AddNewFolderModal> {
+  final TextEditingController folderNameController = TextEditingController();
+  final TextEditingController folderDescriptionController = TextEditingController();
+
+  String? _errorText;
 
   Future<void> addNewFolder() async {
+    final String name = folderNameController.text;
+    final String description = folderDescriptionController.text;
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // await prefs.setStringList('items', <String>['Earth', 'Moon', 'Sun']);
+
+    List<String>? folderList = prefs.getStringList('folders');
+    folderList = folderList ?? [];
+
+    // Check if folder name already exists
+    for (String folderJson in folderList) {
+      Folder folder = Folder.fromJson(jsonDecode(folderJson));
+      if (folder.name == name) {
+        setState(() {
+          _errorText = 'Folder with the name "$name" already exists.';
+        });
+        return;
+      }
+    }
+
+    final newFolder = Folder(name, description);
+    folderList.add(jsonEncode(newFolder.toJson()));
+
+    await prefs.setStringList('folders', folderList);
+    //
+    // print('Folder added: $name, $description');
+    //
+    // print(prefs.get('folders'));
+
+    Navigator.pop(context);
   }
 
   @override
@@ -24,30 +63,42 @@ class AddNewFolderModal extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 600,
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: folderNameController,
+                    decoration: const InputDecoration(
                       label: Text('Folder name'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       hintText: 'Enter folder name',
+                      errorText: _errorText,
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        _errorText = null; // Clear error when user types
+                      });
+                      print('Folder name: $value');
+                    },
                   ),
                 ),
                 const SizedBox(height: 30),
-                const SizedBox(
+                SizedBox(
                   width: 600,
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: folderDescriptionController,
+                    decoration: const InputDecoration(
                       label: Text('Description'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       hintText: 'Enter folder description (optional)',
                     ),
                     keyboardType: TextInputType.multiline,
-                    minLines: 6, // Set this
-                    maxLines: 10, // and this
+                    minLines: 6,
+                    maxLines: 10,
+                    onChanged: (value) {
+                      print('Folder description: $value');
+                    },
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -64,9 +115,7 @@ class AddNewFolderModal extends StatelessWidget {
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
                             ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                            onPressed: addNewFolder,
                             child: const Text('Add'),
                           ),
                         ),

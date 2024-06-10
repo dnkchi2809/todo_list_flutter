@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../modals/add_new_folder_modal.dart';
 
 class AddNewFolderButton extends StatelessWidget {
@@ -13,7 +12,7 @@ class AddNewFolderButton extends StatelessWidget {
           context: context,
           useSafeArea: true,
           builder: (BuildContext context) {
-            return const AddNewFolderModal();
+            return AddNewFolderModal();
           },
         );
       },
