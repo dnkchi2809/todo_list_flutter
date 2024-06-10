@@ -48,7 +48,7 @@ class AddNewTaskModal extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const DatePickerDemo(),
+                const SizedBox(width: 600, child: DatePickerDemo()),
                 const SizedBox(height: 30),
                 const SizedBox(
                     width: 600,

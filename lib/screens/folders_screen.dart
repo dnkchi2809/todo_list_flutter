@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -19,9 +20,23 @@ class FolderScreenState extends State<FoldersScreen> {
   late SharedPreferences prefs;
   List<Folder> folders = [];
 
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
+    _initSharedPreferences();
+    _startPolling();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  Future<void> _initSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
     _loadSharedPreferences();
   }
 
@@ -37,24 +52,36 @@ class FolderScreenState extends State<FoldersScreen> {
     });
   }
 
+  void _startPolling() {
+    _timer = Timer.periodic(const Duration(seconds: 0), (timer) {
+      _loadSharedPreferences();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: folders.isNotEmpty ? ListView.builder(
-          itemCount: folders.length,
-          itemBuilder: (context, index) {
-            return Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FolderModel(
-                  folderName: folders[index].name,
-                  // quantityTask: folders[index].quantity,
+        child: folders.isNotEmpty
+            ? GridView.builder(
+                itemCount: folders.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, // 4 columns
+                  crossAxisSpacing: 4.0, // Horizontal space between each item
+                  mainAxisSpacing: 4.0, // Vertical space between each item
                 ),
-              ),
-            );
-          },
-        ) : const Text('There is no folder found. Please create new folder'),
+                itemBuilder: (context, index) {
+                  final folder = folders[index];
+                  return Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: FolderModel(
+                        folderName: folder.name,
+                        folderDescription: folder.description,
+                        folderQuantity: folder.quantity,
+                      ));
+                },
+              )
+            : const Text('There is no folder found. Please create new folder'),
       ),
     );
   }

@@ -13,31 +13,27 @@ class AddNewFolderModal extends StatefulWidget {
 
 class _AddNewFolderModalState extends State<AddNewFolderModal> {
   final TextEditingController folderNameController = TextEditingController();
-  final TextEditingController folderDescriptionController = TextEditingController();
+  final TextEditingController folderDescriptionController =
+      TextEditingController();
 
   String? _errorText;
 
   Future<void> addNewFolder() async {
+    String quantity = '0';
     final String name = folderNameController.text;
     final String description = folderDescriptionController.text;
-    const int quantity = 0;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove('folders');
     List<String>? folderList = prefs.getStringList('folders');
     folderList = folderList ?? [];
 
-    // Check if folder name already exists
-    for (String folderJson in folderList) {
-      Folder folder = Folder.fromJson(jsonDecode(folderJson));
-      if (folder.name == name) {
-        setState(() {
-          _errorText = 'Folder with the name "$name" already exists.';
-        });
-        return;
-      }
-    }
+    var isValidFolder = validateFolder(folderList, name);
 
-    final newFolder = Folder(name, description);
+    if (!isValidFolder) return;
+
+    final newFolder = Folder(name, description, quantity);
     print(newFolder);
     folderList.add(jsonEncode(newFolder.toJson()));
 
@@ -45,6 +41,29 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     print('Folder added: $name, $description');
     Navigator.pop(context);
+  }
+
+  bool validateFolder(folderList, inputName) {
+    //check inputName not empty
+    if (inputName.toString().isEmpty) {
+      setState(() {
+        _errorText = 'Folder name is not empty.';
+      });
+      return false;
+    }
+
+    // Check if folder name already exists
+    for (String folderJson in folderList) {
+      Folder folder = Folder.fromJson(jsonDecode(folderJson));
+      if (folder.name == inputName) {
+        setState(() {
+          _errorText = 'Folder with the name "$inputName" already exists.';
+        });
+        return false;
+      }
+    }
+
+    return true;
   }
 
   @override
