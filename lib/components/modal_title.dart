@@ -10,7 +10,7 @@ class ModalTitle extends StatelessWidget{
     return Text(title,
         style: const TextStyle(
           color: Colors.blueAccent,
-          fontSize: 18,
+          fontSize: 20,
         )
     );
   }

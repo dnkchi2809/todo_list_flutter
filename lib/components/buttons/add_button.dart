@@ -10,14 +10,9 @@ class AddButton extends StatelessWidget{
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: (){
-        showModalBottomSheet<void>(
+        showDialog<void>(
           context: context,
           useSafeArea: true,
-          constraints: const BoxConstraints(
-            maxHeight: 700,
-            maxWidth: 700,
-          ),
-          isScrollControlled: true,
           builder: (BuildContext context) {
             return const AddNewTaskModal();
           },
