@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-
-import '../buttons/date_picker.dart';
-import '../buttons/select_folder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../modal_title.dart';
 
-class AddNewTaskModal extends StatelessWidget {
-  const AddNewTaskModal({super.key});
+class AddNewFolderModal extends StatelessWidget {
+  const AddNewFolderModal({super.key});
+
+  Future<void> addNewFolder() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await prefs.setStringList('items', <String>['Earth', 'Moon', 'Sun']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class AddNewTaskModal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Add a task'),
+            const ModalTitle('Add new folder'),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -25,10 +28,10 @@ class AddNewTaskModal extends StatelessWidget {
                   width: 600,
                   child: TextField(
                     decoration: InputDecoration(
-                      label: Text('Task title'),
+                      label: Text('Folder name'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
-                      hintText: 'Enter task title',
+                      hintText: 'Enter folder name',
                     ),
                   ),
                 ),
@@ -40,25 +43,13 @@ class AddNewTaskModal extends StatelessWidget {
                       label: Text('Description'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
-                      hintText: 'Enter task description (optional)',
+                      hintText: 'Enter folder description (optional)',
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6, // Set this
                     maxLines: 10, // and this
                   ),
                 ),
-                const SizedBox(height: 30),
-                const DatePickerDemo(),
-                const SizedBox(height: 30),
-                const SizedBox(
-                    width: 600,
-                    child: Row(
-                      children: [
-                        Text('Select folder'),
-                        SizedBox(width: 10),
-                        SelectFolder(taskId: 0),
-                      ],
-                    )),
                 const SizedBox(height: 30),
                 SizedBox(
                   width: 600,

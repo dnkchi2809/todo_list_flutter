@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../modals/add_new_task_modal.dart';
 
-class AddButton extends StatelessWidget{
-  const AddButton({super.key});
+class AddNewTaskButton extends StatelessWidget {
+  const AddNewTaskButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: (){
+      onPressed: () {
         showDialog<void>(
           context: context,
           useSafeArea: true,
@@ -20,16 +19,14 @@ class AddButton extends StatelessWidget{
       },
       style: IconButton.styleFrom(
         backgroundColor: Colors.blue.shade200,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       icon: const Icon(
         Icons.add,
         size: 30,
         color: Colors.black54,
       ),
-      tooltip: 'Add  new todo',
+      tooltip: 'Add new todo',
     );
   }
-  
 }
