@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../classes/folder.dart';
+import '../../classes/folder.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
@@ -20,6 +20,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
   Future<void> addNewFolder() async {
     final String name = folderNameController.text;
     final String description = folderDescriptionController.text;
+    const int quantity = 0;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? folderList = prefs.getStringList('folders');
@@ -37,6 +38,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     }
 
     final newFolder = Folder(name, description);
+    print(newFolder);
     folderList.add(jsonEncode(newFolder.toJson()));
 
     await prefs.setStringList('folders', folderList);

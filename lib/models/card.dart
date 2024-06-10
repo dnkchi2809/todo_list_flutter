@@ -3,12 +3,12 @@ import 'package:todo_list_flutter/const.dart';
 
 import '../utils/color_from_status.dart';
 
-class CardComponent extends StatelessWidget{
+class CardModel extends StatelessWidget{
   final String cardTitle;
   final Status status;
   final String recentUpdateDate;
 
-  const CardComponent({
+  const CardModel({
     super.key,
     required this.cardTitle,
     required this.status,
