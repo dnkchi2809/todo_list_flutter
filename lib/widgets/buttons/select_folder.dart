@@ -14,6 +14,8 @@ class SelectFolder extends StatefulWidget {
 }
 
 class _SelectFolderState extends State<SelectFolder> {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
   String dropdownValue = list.first;
 
   @override
