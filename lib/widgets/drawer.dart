@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
-import 'package:todo_list_flutter/pages/folders_screen.dart';
-import 'package:todo_list_flutter/pages/home_screen.dart';
 
-import '../managers/menu_state.dart';
+import '../states/menu_state.dart';
 
 class DrawerWidget extends RecoilWidget {
   DrawerWidget({super.key});

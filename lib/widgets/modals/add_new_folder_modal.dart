@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../classes/Folder.dart';
+import '../classes/folder.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
@@ -74,7 +74,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                       setState(() {
                         _errorText = null; // Clear error when user types
                       });
-                      print('Folder name: $value');
                     },
                   ),
                 ),
@@ -92,9 +91,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                     keyboardType: TextInputType.multiline,
                     minLines: 6,
                     maxLines: 10,
-                    onChanged: (value) {
-                      print('Folder description: $value');
-                    },
                   ),
                 ),
                 const SizedBox(height: 30),
