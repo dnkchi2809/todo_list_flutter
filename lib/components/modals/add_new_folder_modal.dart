@@ -5,7 +5,7 @@ import '../classes/Folder.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
-  AddNewFolderModal({super.key});
+  AddNewFolderModal({Key? key}) : super(key: key);
 
   @override
   _AddNewFolderModalState createState() => _AddNewFolderModalState();
@@ -22,7 +22,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     final String description = folderDescriptionController.text;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     List<String>? folderList = prefs.getStringList('folders');
     folderList = folderList ?? [];
 
@@ -41,11 +40,8 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     folderList.add(jsonEncode(newFolder.toJson()));
 
     await prefs.setStringList('folders', folderList);
-    //
-    // print('Folder added: $name, $description');
-    //
-    // print(prefs.get('folders'));
 
+    print('Folder added: $name, $description');
     Navigator.pop(context);
   }
 
@@ -67,10 +63,10 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                   width: 600,
                   child: TextField(
                     controller: folderNameController,
-                    decoration: const InputDecoration(
-                      label: Text('Folder name'),
+                    decoration: InputDecoration(
+                      labelText: 'Folder name',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Enter folder name',
                       errorText: _errorText,
                     ),
@@ -88,7 +84,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                   child: TextField(
                     controller: folderDescriptionController,
                     decoration: const InputDecoration(
-                      label: Text('Description'),
+                      labelText: 'Description',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                       hintText: 'Enter folder description (optional)',
