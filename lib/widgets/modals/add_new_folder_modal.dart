@@ -5,13 +5,14 @@ import '../../classes/folder.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
-  AddNewFolderModal({Key? key}) : super(key: key);
+  const AddNewFolderModal({super.key});
+
 
   @override
-  _AddNewFolderModalState createState() => _AddNewFolderModalState();
+  AddNewFolderModalState createState() => AddNewFolderModalState();
 }
 
-class _AddNewFolderModalState extends State<AddNewFolderModal> {
+class AddNewFolderModalState extends State<AddNewFolderModal> {
   final TextEditingController folderNameController = TextEditingController();
   final TextEditingController folderDescriptionController =
       TextEditingController();
@@ -19,27 +20,43 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
   String? _errorText;
 
   Future<void> addNewFolder() async {
-    String quantity = '0';
+    int newFolderId;
     final String name = folderNameController.text;
     final String description = folderDescriptionController.text;
+    List taskIds = [];
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.remove('folders');
+    // await prefs.remove('folders');
     List<String>? folderList = prefs.getStringList('folders');
     folderList = folderList ?? [];
+
+    // print(folderList);
 
     var isValidFolder = validateFolder(folderList, name);
 
     if (!isValidFolder) return;
 
-    final newFolder = Folder(name, description, quantity);
+    if(folderList.isEmpty){
+      newFolderId = 0;
+    }else{
+      var lastFolder = Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
+      var lastFolderIdInList = lastFolder.folderId;
+      newFolderId = lastFolderIdInList + 1;
+    };
+
+    final newFolder = Folder(
+        newFolderId,
+        name,
+        description,
+        taskIds);
     print(newFolder);
+
     folderList.add(jsonEncode(newFolder.toJson()));
 
-    await prefs.setStringList('folders', folderList);
+    await prefs.setStringList('folders', folderList.cast<String>());
 
-    print('Folder added: $name, $description');
+    // print('Folder added: $newFolderId, $name, $description, $quantity');
     Navigator.pop(context);
   }
 

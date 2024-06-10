@@ -4,8 +4,21 @@ import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
 
-class AddNewTaskModal extends StatelessWidget {
+class AddNewTaskModal extends StatefulWidget {
   const AddNewTaskModal({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return AddNewTaskModalState();
+  }
+}
+
+class AddNewTaskModalState extends State<AddNewTaskModal>{
+  final TextEditingController taskNameController = TextEditingController();
+  final TextEditingController taskDescriptionController =
+  TextEditingController();
+
+  String? _errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +34,19 @@ class AddNewTaskModal extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 600,
                   child: TextField(
                     decoration: InputDecoration(
-                      label: Text('Task title'),
+                      label: const Text('Task title'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Enter task title',
+                      errorText: _errorText
                     ),
+                    onChanged: (value) {
+                      print(value);
+                    },
                   ),
                 ),
                 const SizedBox(height: 30),

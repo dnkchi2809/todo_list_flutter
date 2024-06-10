@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FolderModel extends StatelessWidget {
   final String folderName;
   final String folderDescription;
-  final String folderQuantity;
+  final int folderQuantity;
 
   const FolderModel(
       {super.key,

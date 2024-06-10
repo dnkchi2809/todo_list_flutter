@@ -66,7 +66,7 @@ class FolderScreenState extends State<FoldersScreen> {
             ? GridView.builder(
                 itemCount: folders.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, // 4 columns
+                  crossAxisCount: 5, // 4 columns
                   crossAxisSpacing: 4.0, // Horizontal space between each item
                   mainAxisSpacing: 4.0, // Vertical space between each item
                 ),
@@ -77,7 +77,7 @@ class FolderScreenState extends State<FoldersScreen> {
                       child: FolderModel(
                         folderName: folder.name,
                         folderDescription: folder.description,
-                        folderQuantity: folder.quantity,
+                        folderQuantity: folder.taskIds.length,
                       ));
                 },
               )

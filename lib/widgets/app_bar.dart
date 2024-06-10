@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'buttons/add_new-folder_button.dart';
-import 'buttons/add_new-task_button.dart';
+import 'buttons/add_new_folder_button.dart';
+import 'buttons/add_new_task_button.dart';
 import 'hooks/dropdown_status.dart';
 
 class AppBarWidget extends StatelessWidget {

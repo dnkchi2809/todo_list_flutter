@@ -1,19 +1,22 @@
 class Folder {
+  final int folderId;
   final String name;
   final String description;
-  final String quantity;
+  final List taskIds;
 
-  Folder(this.name, this.description, this.quantity);
+  Folder(this.folderId, this.name, this.description, this.taskIds);
 
   Map<String, dynamic> toJson() => {
+        'folderId': folderId,
         'name': name,
         'description': description,
-        'quantity': quantity,
+        'taskIds': taskIds,
       };
 
   static Folder fromJson(Map<String, dynamic> json) => Folder(
+        json['folderId'],
         json['name'],
         json['description'],
-        json['quantity'],
+        json['taskIds'],
       );
 }
