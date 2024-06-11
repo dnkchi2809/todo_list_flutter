@@ -27,11 +27,10 @@ class _SelectStatusState extends State<SelectStatus> {
     return DropdownMenu<String>(
       initialSelection: StatusExtension.fromInt(currentStatus),
       onSelected: (String? value) {
-        // final selectedStatus = StatusList.;
-        // widget.onSelectStatus(selectedStatus.); // Call callback function with folderId
+        widget.onSelectStatus(StatusList.indexOf(value!));
 
         setState(() {
-          dropdownValue = value!;
+          dropdownValue = value;
         });
       },
       dropdownMenuEntries:

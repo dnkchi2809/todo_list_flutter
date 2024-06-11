@@ -43,7 +43,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     folderList.add(jsonEncode(newFolder.toJson()));
 
-    await prefs.setStringList('folders', folderList.cast<String>());
+    await prefs.setStringList('folders', folderList);
 
     Navigator.pop(context);
   }

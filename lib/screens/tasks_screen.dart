@@ -6,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/models/task_model.dart';
 
-import '../utils/status_extension.dart';
-
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 
@@ -76,12 +74,14 @@ class _TasksScreenState extends State<TasksScreen> {
                   itemBuilder: (context, index) {
                     final task = tasks[index];
                     return Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: TaskModel(task: task));
                   },
                 )
-              : const Text(
-                  'There is no folder found. Please create new folder'),
+              : const Center(
+                child: Text(
+                    'There is no task found. Please create new task'),
+              ),
         ),
       ),
     );

@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_list_flutter/const.dart';
 import '../../classes/task.dart';
 import '../../utils/get_today.dart';
+import '../buttons/date_picker.dart';
+import '../buttons/select_folder.dart';
+import '../buttons/select_status.dart';
 import '../modal_title.dart';
 
 class EditTaskModal extends StatefulWidget {
@@ -19,27 +21,32 @@ class EditTaskModal extends StatefulWidget {
 }
 
 class _EditTaskModalState extends State<EditTaskModal> {
+  late Task currentTask;
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
       TextEditingController();
 
   String? _errorText;
 
-  int? selectedFolderId;
   String? deadline;
+  int? selectedFolderId;
+  int? selectedStatus;
 
   @override
   void initState() {
     super.initState();
-    taskNameController.text = widget.taskRequest.name;
-    taskDescriptionController.text = widget.taskRequest.description;
+    currentTask = widget.taskRequest;
+    taskNameController.text = currentTask.name;
+    taskDescriptionController.text = currentTask.description;
+    deadline = currentTask.deadline;
+    selectedFolderId = currentTask.folderId;
+    selectedStatus = currentTask.status;
   }
 
   Future<void> editTask() async {
-    int newTaskId;
     final String name = taskNameController.text;
     final String description = taskDescriptionController.text;
-    final String createDate = getToday();
+    final String updateDate = getToday();
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -51,14 +58,17 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     if (!isValidTask) return;
 
-    newTaskId = getNewTaskId(taskList);
+    print(currentTask.folderId);
+    print(selectedFolderId);
 
-    final newTask = Task(newTaskId, name, description, deadline!, createDate,
-        Status.values.indexOf(Status.Todo), selectedFolderId!);
+    final newTask = Task(currentTask.taskId, name, description, deadline!, updateDate,
+        selectedStatus!, selectedFolderId!);
 
-    taskList.add(jsonEncode(newTask.toJson()));
+    taskList = updateTaskList(taskList, newTask);
 
-    await prefs.setStringList('tasks', taskList.cast<String>());
+    await prefs.setStringList('tasks', taskList);
+
+    updateFolder(prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -75,14 +85,56 @@ class _EditTaskModalState extends State<EditTaskModal> {
     return true;
   }
 
-  int getNewTaskId(taskList) {
-    if (taskList.isEmpty) {
-      return 0;
-    } else {
-      var lastTask = Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
-      var lastTaskIdInList = lastTask.taskId;
-      return lastTaskIdInList + 1;
+  void updateFolder(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
+    print('newFolderId $newFolderId');
+    List<String>? folderList = prefs.getStringList('folders');
+
+    if (folderList == null) {
+      return; // No need to update or folderList is null
     }
+
+    List updateTaskIds(int folderId, List taskIds) {
+      if(folderId.toInt() == newFolderId){
+        print('add in newFolder');
+        taskIds.add(taskIdToUpdate);
+      } else {
+        print('remove in prevFolder');
+        taskIds.removeWhere((taskId) => taskId == taskIdToUpdate);
+      }
+
+      return taskIds;
+    }
+
+    for (var folderJson in folderList) {
+      final folderMap = jsonDecode(folderJson);
+      final folderId = folderMap['folderId'];
+      print('folderId $folderId');
+      final taskIds = List.from(folderMap['taskIds']);
+      var newTaskIds = updateTaskIds(folderId, taskIds);
+      print('newTaskIds: $newTaskIds');
+      folderMap['taskIds'] = newTaskIds;
+      print('folderMap[taskIds] : $folderMap[$taskIds] ');
+    }
+    
+    print('lastFolderList: $folderList');
+
+    prefs.setStringList('folders', folderList);
+  }
+
+
+  List<String> updateTaskList (taskList, newTask){
+    final newTaskJson = jsonEncode(newTask.toJson());
+
+    final existingTaskIndex = taskList.indexWhere((taskJson) {
+      final taskMap = jsonDecode(taskJson);
+      return taskMap['taskId'] == newTask.taskId;
+    });
+
+    existingTaskIndex != -1
+        ? taskList[existingTaskIndex] = newTaskJson
+        : taskList.add(newTaskJson);
+
+    return taskList;
   }
 
   @override
@@ -130,38 +182,38 @@ class _EditTaskModalState extends State<EditTaskModal> {
                     maxLines: 10, // and this
                   ),
                 ),
-                // const SizedBox(height: 30),
-                // SizedBox(
-                //     width: 600,
-                //     child: DatePickerDemo(
-                //       onSelectDeadline: _handleSelectDeadline,
-                //     )),
-                // const SizedBox(height: 30),
-                // SizedBox(
-                //   width: 600,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Row(
-                //         children: [
-                //           const Text('Select folder'),
-                //           const SizedBox(width: 20),
-                //           SelectFolder(onSelectFolder: _handleSelectFolder),
-                //         ],
-                //       ),
-                //       Row(
-                //         children: [
-                //           const Text('Select status'),
-                //           const SizedBox(width: 20),
-                //           SelectStatus(
-                //             onSelectStatus: (int) {},
-                //             status: widget.taskRequest.status,
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                const SizedBox(height: 30),
+                SizedBox(
+                    width: 600,
+                    child: DatePickerDemo(
+                      onSelectDeadline: _handleSelectDeadline,
+                    )),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: 600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Text('Select folder'),
+                          const SizedBox(width: 20),
+                          SelectFolder(onSelectFolder: _handleSelectFolder),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text('Select status'),
+                          const SizedBox(width: 20),
+                          SelectStatus(
+                            onSelectStatus: _handleSelectStatus,
+                            status: widget.taskRequest.status,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 30),
                 SizedBox(
                   width: 600,
@@ -218,6 +270,12 @@ class _EditTaskModalState extends State<EditTaskModal> {
   void _handleSelectFolder(int folderId) {
     setState(() {
       selectedFolderId = folderId; // Update selectedFolderId state variable
+    });
+  }
+
+  void _handleSelectStatus(int statusIndex) {
+    setState(() {
+      selectedStatus = statusIndex;
     });
   }
 }
