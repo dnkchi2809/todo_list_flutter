@@ -12,11 +12,11 @@ class FoldersScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return FolderScreenState();
+    return _FolderScreenState();
   }
 }
 
-class FolderScreenState extends State<FoldersScreen> {
+class _FolderScreenState extends State<FoldersScreen> {
   late SharedPreferences prefs;
   List<Folder> folders = [];
 

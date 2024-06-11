@@ -9,11 +9,11 @@ class AddNewTaskModal extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return AddNewTaskModalState();
+    return _AddNewTaskModalState();
   }
 }
 
-class AddNewTaskModalState extends State<AddNewTaskModal>{
+class _AddNewTaskModalState extends State<AddNewTaskModal>{
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
   TextEditingController();

@@ -9,10 +9,10 @@ class AddNewFolderModal extends StatefulWidget {
 
 
   @override
-  AddNewFolderModalState createState() => AddNewFolderModalState();
+  _AddNewFolderModalState createState() => _AddNewFolderModalState();
 }
 
-class AddNewFolderModalState extends State<AddNewFolderModal> {
+class _AddNewFolderModalState extends State<AddNewFolderModal> {
   final TextEditingController folderNameController = TextEditingController();
   final TextEditingController folderDescriptionController =
       TextEditingController();
