@@ -44,7 +44,6 @@ class _SelectFolderState extends State<SelectFolder> {
           return DropdownMenu<String>(
             initialSelection: folderList.first.name,
             onSelected: (String? value) {
-              // This is called when the user selects an item.
               final selectedFolder = folderList.firstWhere((folder) => folder.name == value);
               widget.onSelectFolder(selectedFolder.folderId); // Call callback function with folderId
 

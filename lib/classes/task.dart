@@ -9,8 +9,15 @@ class Task {
   final Status status;
   final int folderId;
 
-  Task(this.taskId, this.name, this.description, this.deadline, this.createDate,
-      this.folderId, this.status);
+  Task(
+    this.taskId,
+    this.name,
+    this.description,
+    this.deadline,
+    this.createDate,
+    this.status,
+    this.folderId,
+  );
 
   Map<String, dynamic> toJson() => {
         'taskId': taskId,

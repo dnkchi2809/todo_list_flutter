@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_list_flutter/const.dart';
+import '../../classes/task.dart';
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
@@ -19,40 +24,40 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
 
   String? _errorText;
 
-  int? selectedFolderId; // Add state variable for selected folderId
+  int? selectedFolderId;
 
-  // Future<void> addNewTask() async {
-  //   int newTaskId;
-  //   final String name = taskNameController.text;
-  //   final String description = taskDescriptionController.text;
-  //
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //
-  //   // await prefs.remove('folders');
-  //   List<String>? taskList = prefs.getStringList('tasks');
-  //   taskList = taskList ?? [];
-  //
-  //   // print(folderList);
-  //
-  //   var isValidTask = validateTask(name);
-  //
-  //   if (!isValidTask) return;
-  //
-  //   var lastTask =
-  //   Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
-  //   var lastTaskIdInList = lastTask.taskId;
-  //   newTaskId = lastTaskIdInList + 1;
-  //
-  //   final newTask = Task(newTaskId, name, description, deadline, createDate, status, folderId);
-  //   print(newTask);
-  //
-  //   taskList.add(jsonEncode(newTask.toJson()));
-  //
-  //   await prefs.setStringList('tasks', taskList.cast<String>());
-  //
-  //   // print('Folder added: $newFolderId, $name, $description, $quantity');
-  //   Navigator.pop(context);
-  // }
+  Future<void> addNewTask() async {
+    int newTaskId;
+    final String name = taskNameController.text;
+    final String description = taskDescriptionController.text;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // await prefs.remove('folders');
+    List<String>? taskList = prefs.getStringList('tasks');
+    taskList = taskList ?? [];
+
+    // print(folderList);
+
+    var isValidTask = validateTask(name);
+
+    if (!isValidTask) return;
+
+    var lastTask =
+    Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
+    var lastTaskIdInList = lastTask.taskId;
+    newTaskId = lastTaskIdInList + 1;
+
+    // final newTask = Task(newTaskId, name, description, deadline, createDate, Status.Todo, selectedFolderId!);
+    // print(newTask);
+    //
+    // taskList.add(jsonEncode(newTask.toJson()));
+    //
+    // await prefs.setStringList('tasks', taskList.cast<String>());
+
+    // print('Folder added: $newFolderId, $name, $description, $quantity');
+    Navigator.pop(context);
+  }
 
   bool validateTask(inputName) {
     //check inputName not empty
