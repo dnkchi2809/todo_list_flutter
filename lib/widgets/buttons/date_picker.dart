@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class DatePickerDemo extends StatefulWidget {
   const DatePickerDemo({super.key});
@@ -11,7 +12,19 @@ class DatePickerDemo extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<DatePickerDemo> {
+  final TextEditingController taskDeadlineController = TextEditingController();
+
   DateTime selectedDate = DateTime.now();
+  
+  @override
+  void initState() {
+    final DateTime today = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formattedDate = formatter.format(today);
+    taskDeadlineController.text = formattedDate;
+
+    super.initState();
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -22,6 +35,7 @@ class _MyHomePageState extends State<DatePickerDemo> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+        taskDeadlineController.text = "${selectedDate.toLocal()}".split(' ')[0];
       });
     }
   }
@@ -32,7 +46,7 @@ class _MyHomePageState extends State<DatePickerDemo> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         TextFormField(
-          initialValue: "${selectedDate.toLocal()}".split(' ')[0],
+          controller: taskDeadlineController,
           decoration: const InputDecoration(
             label: Text('Deadline'),
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -40,14 +54,6 @@ class _MyHomePageState extends State<DatePickerDemo> {
           ),
           onTap: () => _selectDate(context),
         ),
-        // Text("${selectedDate.toLocal()}".split(' ')[0]),
-        // const SizedBox(
-        //   height: 20.0,
-        // ),
-        // ElevatedButton(
-        //   onPressed: () => _selectDate(context),
-        //   child: const Text('Select date'),
-        // ),
       ],
     );
   }
