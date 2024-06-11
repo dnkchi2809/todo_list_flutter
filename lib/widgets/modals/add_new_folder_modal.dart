@@ -7,7 +7,6 @@ import '../modal_title.dart';
 class AddNewFolderModal extends StatefulWidget {
   const AddNewFolderModal({super.key});
 
-
   @override
   _AddNewFolderModalState createState() => _AddNewFolderModalState();
 }
@@ -37,19 +36,12 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     if (!isValidFolder) return;
 
-    if(folderList.isEmpty){
-      newFolderId = 0;
-    }else{
-      var lastFolder = Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
-      var lastFolderIdInList = lastFolder.folderId;
-      newFolderId = lastFolderIdInList + 1;
-    };
+    var lastFolder =
+        Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
+    var lastFolderIdInList = lastFolder.folderId;
+    newFolderId = lastFolderIdInList + 1;
 
-    final newFolder = Folder(
-        newFolderId,
-        name,
-        description,
-        taskIds);
+    final newFolder = Folder(newFolderId, name, description, taskIds);
     print(newFolder);
 
     folderList.add(jsonEncode(newFolder.toJson()));

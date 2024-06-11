@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
@@ -19,6 +18,53 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
   TextEditingController();
 
   String? _errorText;
+
+  int? selectedFolderId; // Add state variable for selected folderId
+
+  // Future<void> addNewTask() async {
+  //   int newTaskId;
+  //   final String name = taskNameController.text;
+  //   final String description = taskDescriptionController.text;
+  //
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //
+  //   // await prefs.remove('folders');
+  //   List<String>? taskList = prefs.getStringList('tasks');
+  //   taskList = taskList ?? [];
+  //
+  //   // print(folderList);
+  //
+  //   var isValidTask = validateTask(name);
+  //
+  //   if (!isValidTask) return;
+  //
+  //   var lastTask =
+  //   Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
+  //   var lastTaskIdInList = lastTask.taskId;
+  //   newTaskId = lastTaskIdInList + 1;
+  //
+  //   final newTask = Task(newTaskId, name, description, deadline, createDate, status, folderId);
+  //   print(newTask);
+  //
+  //   taskList.add(jsonEncode(newTask.toJson()));
+  //
+  //   await prefs.setStringList('tasks', taskList.cast<String>());
+  //
+  //   // print('Folder added: $newFolderId, $name, $description, $quantity');
+  //   Navigator.pop(context);
+  // }
+
+  bool validateTask(inputName) {
+    //check inputName not empty
+    if (inputName.toString().isEmpty) {
+      setState(() {
+        _errorText = 'Task title is not empty.';
+      });
+      return false;
+    }
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +113,13 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
                 const SizedBox(height: 30),
                 const SizedBox(width: 600, child: DatePickerDemo()),
                 const SizedBox(height: 30),
-                const SizedBox(
+                SizedBox(
                     width: 600,
                     child: Row(
                       children: [
-                        Text('Select folder'),
-                        SizedBox(width: 10),
-                        SelectFolder(taskId: 0),
+                        const Text('Select folder'),
+                        const SizedBox(width: 10),
+                        SelectFolder(taskId: 0, onSelectFolder: _handleSelectFolder),
                       ],
                     )),
                 const SizedBox(height: 30),
@@ -122,5 +168,13 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
         ),
       ),
     );
+  }
+
+  // Callback function to handle selected folderId
+  void _handleSelectFolder(int folderId) {
+    setState(() {
+      selectedFolderId = folderId; // Update selectedFolderId state variable
+    });
+    print(selectedFolderId);
   }
 }

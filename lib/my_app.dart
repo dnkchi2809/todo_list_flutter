@@ -7,7 +7,6 @@ import 'package:todo_list_flutter/widgets/hooks/menu.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return RecoilProvider(

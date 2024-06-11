@@ -62,26 +62,29 @@ class _FolderScreenState extends State<FoldersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: folders.isNotEmpty
-            ? GridView.builder(
-                itemCount: folders.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5, // 4 columns
-                  crossAxisSpacing: 4.0, // Horizontal space between each item
-                  mainAxisSpacing: 4.0, // Vertical space between each item
-                ),
-                itemBuilder: (context, index) {
-                  final folder = folders[index];
-                  return Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: FolderModel(
-                        folderName: folder.name,
-                        folderDescription: folder.description,
-                        folderQuantity: folder.taskIds.length,
-                      ));
-                },
-              )
-            : const Text('There is no folder found. Please create new folder'),
+        child: SizedBox(
+          width: 1200,
+          child: folders.isNotEmpty
+              ? GridView.builder(
+                  itemCount: folders.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5, // 4 columns
+                    crossAxisSpacing: 4.0, // Horizontal space between each item
+                    mainAxisSpacing: 4.0, // Vertical space between each item
+                  ),
+                  itemBuilder: (context, index) {
+                    final folder = folders[index];
+                    return Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: FolderModel(
+                          folderName: folder.name,
+                          folderDescription: folder.description,
+                          folderQuantity: folder.taskIds.length,
+                        ));
+                  },
+                )
+              : const Text('There is no folder found. Please create new folder'),
+        ),
       ),
     );
   }
