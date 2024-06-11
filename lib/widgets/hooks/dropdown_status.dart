@@ -8,6 +8,6 @@ class DropdownStatus extends RecoilWidget{
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonExample();
+    return DropdownStatusButton();
   }
 }

@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 
+import '../../const.dart';
 import '../../states/status_state.dart';
 
-const List<String> list = <String>[
-  'All',
-  'Todo',
-  'In progress',
-  'Pending',
-  'Done'
-];
-
-class DropdownButtonExample extends RecoilWidget {
+class DropdownStatusButton extends RecoilWidget {
   final statusSelected = useRecoilState(statusState);
 
-  DropdownButtonExample({super.key});
+  DropdownStatusButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +32,7 @@ class DropdownButtonExample extends RecoilWidget {
             statusSelected
                 .setData(value!.isNotEmpty ? value : statusSelected.data);
           },
-          items: list.map<DropdownMenuItem<String>>((String value) {
+          items: StatusList.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(

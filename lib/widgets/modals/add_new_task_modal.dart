@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/const.dart';
 import '../../classes/task.dart';
+import '../../utils/get_today.dart';
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
@@ -17,45 +18,48 @@ class AddNewTaskModal extends StatefulWidget {
   }
 }
 
-class _AddNewTaskModalState extends State<AddNewTaskModal>{
+class _AddNewTaskModalState extends State<AddNewTaskModal> {
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
-  TextEditingController();
+      TextEditingController();
 
   String? _errorText;
 
   int? selectedFolderId;
+  String? deadline;
+
+  @override
+  void initState() {super.initState();
+
+    deadline = getToday();
+    selectedFolderId = 0;
+  }
 
   Future<void> addNewTask() async {
     int newTaskId;
     final String name = taskNameController.text;
     final String description = taskDescriptionController.text;
+    final String createDate = getToday();
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // await prefs.remove('folders');
+    // await prefs.remove('tasks');
     List<String>? taskList = prefs.getStringList('tasks');
     taskList = taskList ?? [];
-
-    // print(folderList);
 
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
-    var lastTask =
-    Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
-    var lastTaskIdInList = lastTask.taskId;
-    newTaskId = lastTaskIdInList + 1;
+    newTaskId = getNewTaskId(taskList);
 
-    // final newTask = Task(newTaskId, name, description, deadline, createDate, Status.Todo, selectedFolderId!);
-    // print(newTask);
-    //
-    // taskList.add(jsonEncode(newTask.toJson()));
-    //
-    // await prefs.setStringList('tasks', taskList.cast<String>());
+    final newTask = Task(newTaskId, name, description, deadline!, createDate,
+        Status.values.indexOf(Status.Todo), selectedFolderId!);
 
-    // print('Folder added: $newFolderId, $name, $description, $quantity');
+    taskList.add(jsonEncode(newTask.toJson()));
+
+    await prefs.setStringList('tasks', taskList.cast<String>());
+
     Navigator.pop(context);
   }
 
@@ -69,6 +73,16 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
     }
 
     return true;
+  }
+
+  int getNewTaskId(taskList){
+    if (taskList.isEmpty) {
+      return 0;
+    } else {
+      var lastTask = Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
+      var lastTaskIdInList = lastTask.taskId;
+      return lastTaskIdInList + 1;
+    }
   }
 
   @override
@@ -88,23 +102,24 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
                 SizedBox(
                   width: 600,
                   child: TextField(
+                    controller: taskNameController,
                     decoration: InputDecoration(
-                      label: const Text('Task title'),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: const OutlineInputBorder(),
-                      hintText: 'Enter task title',
-                      errorText: _errorText
-                    ),
+                        label: const Text('Task title'),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        border: const OutlineInputBorder(),
+                        hintText: 'Enter task title',
+                        errorText: _errorText),
                     onChanged: (value) {
                       print(value);
                     },
                   ),
                 ),
                 const SizedBox(height: 30),
-                const SizedBox(
+                SizedBox(
                   width: 600,
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: taskDescriptionController,
+                    decoration: const InputDecoration(
                       label: Text('Description'),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
@@ -116,7 +131,11 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
                   ),
                 ),
                 const SizedBox(height: 30),
-                const SizedBox(width: 600, child: DatePickerDemo()),
+                SizedBox(
+                    width: 600,
+                    child: DatePickerDemo(
+                      onSelectDeadline: _handleSelectDeadline,
+                    )),
                 const SizedBox(height: 30),
                 SizedBox(
                     width: 600,
@@ -124,7 +143,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
                       children: [
                         const Text('Select folder'),
                         const SizedBox(width: 10),
-                        SelectFolder(taskId: 0, onSelectFolder: _handleSelectFolder),
+                        SelectFolder(onSelectFolder: _handleSelectFolder),
                       ],
                     )),
                 const SizedBox(height: 30),
@@ -141,9 +160,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
                             ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                            onPressed: addNewTask,
                             child: const Text('Add'),
                           ),
                         ),
@@ -175,11 +192,16 @@ class _AddNewTaskModalState extends State<AddNewTaskModal>{
     );
   }
 
+  void _handleSelectDeadline(String selectedDeadline) {
+    setState(() {
+      deadline = selectedDeadline;
+    });
+  }
+
   // Callback function to handle selected folderId
   void _handleSelectFolder(int folderId) {
     setState(() {
       selectedFolderId = folderId; // Update selectedFolderId state variable
     });
-    print(selectedFolderId);
   }
 }

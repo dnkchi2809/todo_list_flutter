@@ -8,7 +8,9 @@ class AddNewFolderModal extends StatefulWidget {
   const AddNewFolderModal({super.key});
 
   @override
-  _AddNewFolderModalState createState() => _AddNewFolderModalState();
+  State<StatefulWidget> createState() {
+    return _AddNewFolderModalState();
+  }
 }
 
 class _AddNewFolderModalState extends State<AddNewFolderModal> {
@@ -30,16 +32,11 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     List<String>? folderList = prefs.getStringList('folders');
     folderList = folderList ?? [];
 
-    // print(folderList);
-
     var isValidFolder = validateFolder(folderList, name);
 
     if (!isValidFolder) return;
 
-    var lastFolder =
-        Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
-    var lastFolderIdInList = lastFolder.folderId;
-    newFolderId = lastFolderIdInList + 1;
+    newFolderId = getNewFolderId(folderList);
 
     final newFolder = Folder(newFolderId, name, description, taskIds);
     print(newFolder);
@@ -48,7 +45,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     await prefs.setStringList('folders', folderList.cast<String>());
 
-    // print('Folder added: $newFolderId, $name, $description, $quantity');
     Navigator.pop(context);
   }
 
@@ -73,6 +69,13 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     }
 
     return true;
+  }
+
+  int getNewFolderId(folderList){
+    var lastFolder =
+    Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
+    var lastFolderIdInList = lastFolder.folderId;
+    return lastFolderIdInList + 1;
   }
 
   @override

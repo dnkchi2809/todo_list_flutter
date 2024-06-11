@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
+import 'package:todo_list_flutter/utils/get_today.dart';
 
 class DatePickerDemo extends StatefulWidget {
-  const DatePickerDemo({super.key});
+  late final Function(String) onSelectDeadline;
+
+  DatePickerDemo({super.key, required this.onSelectDeadline});
 
   @override
   State<StatefulWidget> createState() {
@@ -15,13 +16,10 @@ class _MyHomePageState extends State<DatePickerDemo> {
   final TextEditingController taskDeadlineController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
-  
+
   @override
   void initState() {
-    final DateTime today = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formattedDate = formatter.format(today);
-    taskDeadlineController.text = formattedDate;
+    taskDeadlineController.text = getToday();
 
     super.initState();
   }
@@ -37,6 +35,7 @@ class _MyHomePageState extends State<DatePickerDemo> {
         selectedDate = picked;
         taskDeadlineController.text = "${selectedDate.toLocal()}".split(' ')[0];
       });
+      widget.onSelectDeadline(taskDeadlineController.text);
     }
   }
 
@@ -53,6 +52,8 @@ class _MyHomePageState extends State<DatePickerDemo> {
             border: OutlineInputBorder(),
           ),
           onTap: () => _selectDate(context),
+          onChanged: (value) =>
+              {widget.onSelectDeadline(taskDeadlineController.text)},
         ),
       ],
     );

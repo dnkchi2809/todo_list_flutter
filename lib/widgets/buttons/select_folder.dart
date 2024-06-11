@@ -6,10 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../classes/folder.dart';
 
 class SelectFolder extends StatefulWidget {
-  final int taskId;
   final Function(int) onSelectFolder;
 
-  const SelectFolder({super.key, required this.taskId, required this.onSelectFolder});
+  const SelectFolder({super.key, required this.onSelectFolder});
 
   @override
   State<SelectFolder> createState() => _SelectFolderState();

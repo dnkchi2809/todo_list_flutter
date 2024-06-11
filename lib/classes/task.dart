@@ -1,12 +1,10 @@
-import 'package:todo_list_flutter/const.dart';
-
 class Task {
   final int taskId;
   final String name;
   final String description;
   final String deadline;
   final String createDate;
-  final Status status;
+  final int status;
   final int folderId;
 
   Task(
