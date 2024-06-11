@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../classes/task.dart';
 import '../utils/status_extension.dart';
+import '../widgets/modals/edit_task_modal.dart';
 
 class TaskModel extends StatelessWidget {
   final Task task;
 
   const TaskModel({super.key, required this.task});
 
-  void onClickEdit() {
-    print('onClickEdit');
+  void onClickEdit(context) {
+    showDialog<void>(
+      context: context,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return EditTaskModal(taskRequest: task);
+      },
+    );
   }
 
   void onClickDelete() {
@@ -99,7 +106,7 @@ class TaskModel extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: onClickEdit,
+                        onPressed: () => onClickEdit(context),
                         icon: const Icon(Icons.edit_outlined),
                         color: Colors.blue,
                       ),

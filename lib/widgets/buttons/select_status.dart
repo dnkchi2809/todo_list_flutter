@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recoil/flutter_recoil.dart';
-
 import '../../const.dart';
-import '../../states/status_state.dart';
+import '../../utils/status_extension.dart';
 
-class SelectStatus extends RecoilWidget {
-  final statusSelected = useRecoilState(statusState);
+class SelectStatus extends StatefulWidget {
+  final int status;
+  final Function(int) onSelectStatus;
 
-  SelectStatus({super.key});
+  const SelectStatus({super.key, required this.onSelectStatus, required this.status});
+
+  @override
+  State<SelectStatus> createState() => _SelectStatusState();
+}
+
+class _SelectStatusState extends State<SelectStatus> {
+  String? dropdownValue;
+  late int currentStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    currentStatus = widget.status;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Text(
-          'Status: ',
-          style: TextStyle(fontSize: 16),
-        ),
-        DropdownMenu<String>(
-          onSelected: (String? value) {
-            statusSelected
-                .setData(value!.isNotEmpty ? value : statusSelected.data);
-          },
-          dropdownMenuEntries:
-          StatusList.map<DropdownMenuEntry<String>>((String value) {
-            return DropdownMenuEntry<String>(value: value, label: value);
-          }).toList(),
-        ),
-      ],
+    return DropdownMenu<String>(
+      initialSelection: StatusExtension.fromInt(currentStatus),
+      onSelected: (String? value) {
+        // final selectedStatus = StatusList.;
+        // widget.onSelectStatus(selectedStatus.); // Call callback function with folderId
+
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      dropdownMenuEntries:
+          StatusList.map<DropdownMenuEntry<String>>((String status) {
+        return DropdownMenuEntry<String>(value: status, label: status);
+      }).toList(),
     );
   }
 }
