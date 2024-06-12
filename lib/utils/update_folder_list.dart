@@ -57,3 +57,27 @@ void updateTaskIdInFolderList(prevFolderId, newFolderId, taskIdToUpdate) async {
 
   prefs.setStringList('folders', folderList);
 }
+
+Future<int> removeInFolderList (currentFolderId) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  List<String>? folderList = prefs.getStringList('folders');
+  folderList = folderList ?? [];
+
+  for (int i = 0; i < folderList.length; i++) {
+    final folderJson = folderList[i];
+    final folderMap = jsonDecode(folderJson);
+    final taskId = folderMap['folderId'];
+
+    if(folderMap['taskIds'].length > 0){
+      return folderMap['taskIds'].length;
+    }
+
+    if(taskId == currentFolderId){
+      folderList.removeAt(i);
+    }
+  }
+
+  await prefs.setStringList('folders', folderList);
+  return 0;
+}

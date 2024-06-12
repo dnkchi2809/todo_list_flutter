@@ -1,62 +1,63 @@
 import 'package:flutter/material.dart';
-import '../../classes/task.dart';
-import '../../utils/get_today.dart';
-import '../../utils/update_folder_list.dart';
-import '../../utils/update_task_list.dart';
-import '../buttons/date_picker.dart';
-import '../buttons/select_folder.dart';
-import '../buttons/select_status.dart';
-import '../modal_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_list_flutter/const.dart';
+import 'package:todo_list_flutter/utils/update_task_list.dart';
+import '../../../classes/task.dart';
+import '../../../utils/get_new_id.dart';
+import '../../../utils/get_today.dart';
+import '../../../utils/status_extension.dart';
+import '../../../utils/update_folder_list.dart';
+import '../../buttons/date_picker.dart';
+import '../../buttons/select_folder.dart';
+import '../../modal_title.dart';
 
-class EditTaskModal extends StatefulWidget {
-  final Task taskRequest;
-
-  const EditTaskModal({super.key, required this.taskRequest});
+class AddNewTaskModal extends StatefulWidget {
+  const AddNewTaskModal({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _EditTaskModalState();
+    return _AddNewTaskModalState();
   }
 }
 
-class _EditTaskModalState extends State<EditTaskModal> {
-  late Task currentTask;
+class _AddNewTaskModalState extends State<AddNewTaskModal> {
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
       TextEditingController();
 
   String? _errorText;
 
-  String? deadline;
   int? selectedFolderId;
-  int? selectedStatus;
+  String? deadline;
 
   @override
   void initState() {
     super.initState();
-    currentTask = widget.taskRequest;
-    taskNameController.text = currentTask.name;
-    taskDescriptionController.text = currentTask.description;
-    deadline = currentTask.deadline;
-    selectedFolderId = currentTask.folderId;
-    selectedStatus = currentTask.status;
+
+    deadline = getToday();
+    selectedFolderId = 0;
   }
 
-  Future<void> editTask() async {
+  Future<void> addNewTask() async {
+    int newTaskId;
     final String name = taskNameController.text;
     final String description = taskDescriptionController.text;
-    final String updateDate = getToday();
+    final String createDate = getToday();
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
-    final updateTask = Task(currentTask.taskId, name, description, deadline!,
-        updateDate, selectedStatus!, selectedFolderId!);
+    newTaskId = getNewTaskId(prefs);
 
-    updateTaskList(updateTask);
+    final newTask = Task(newTaskId, name, description, deadline!, createDate,
+        enumToStatusIndex(Status.Todo), selectedFolderId!);
 
-    updateTaskIdInFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateTaskList(newTask);
+
+    updateTaskIdInFolderList(0, selectedFolderId, newTaskId);
 
     Navigator.pop(context);
   }
@@ -82,7 +83,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Edit task'),
+            const ModalTitle('Add a task'),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -123,33 +124,17 @@ class _EditTaskModalState extends State<EditTaskModal> {
                     )),
                 const SizedBox(height: 30),
                 SizedBox(
-                  width: 600,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          const Text('Select folder'),
-                          const SizedBox(width: 20),
-                          SelectFolder(
-                            onSelectFolder: _handleSelectFolder,
-                            folderId: selectedFolderId!,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Text('Select status'),
-                          const SizedBox(width: 20),
-                          SelectStatus(
-                            onSelectStatus: _handleSelectStatus,
-                            status: widget.taskRequest.status,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                    width: 600,
+                    child: Row(
+                      children: [
+                        const Text('Select folder'),
+                        const SizedBox(width: 10),
+                        SelectFolder(
+                          onSelectFolder: _handleSelectFolder,
+                          folderId: 0,
+                        ),
+                      ],
+                    )),
                 const SizedBox(height: 30),
                 SizedBox(
                   width: 600,
@@ -164,8 +149,8 @@ class _EditTaskModalState extends State<EditTaskModal> {
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
                             ),
-                            onPressed: editTask,
-                            child: const Text('Update'),
+                            onPressed: addNewTask,
+                            child: const Text('Add'),
                           ),
                         ),
                       ),
@@ -206,12 +191,6 @@ class _EditTaskModalState extends State<EditTaskModal> {
   void _handleSelectFolder(int folderId) {
     setState(() {
       selectedFolderId = folderId; // Update selectedFolderId state variable
-    });
-  }
-
-  void _handleSelectStatus(int statusIndex) {
-    setState(() {
-      selectedStatus = statusIndex;
     });
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../classes/task.dart';
-import '../../utils/update_folder_list.dart';
-import '../../utils/update_task_list.dart';
-import '../modal_title.dart';
+import '../../../classes/task.dart';
+import '../../../utils/update_folder_list.dart';
+import '../../../utils/update_task_list.dart';
+import '../../modal_title.dart';
 
 class DeleteTaskModal extends StatefulWidget {
   final Task taskRequest;

@@ -1,63 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_list_flutter/const.dart';
-import 'package:todo_list_flutter/utils/update_task_list.dart';
-import '../../classes/task.dart';
-import '../../utils/get_new_id.dart';
-import '../../utils/get_today.dart';
-import '../../utils/status_extension.dart';
-import '../../utils/update_folder_list.dart';
-import '../buttons/date_picker.dart';
-import '../buttons/select_folder.dart';
-import '../modal_title.dart';
+import '../../../classes/task.dart';
+import '../../../utils/get_today.dart';
+import '../../../utils/update_folder_list.dart';
+import '../../../utils/update_task_list.dart';
+import '../../buttons/date_picker.dart';
+import '../../buttons/select_folder.dart';
+import '../../buttons/select_status.dart';
+import '../../modal_title.dart';
 
-class AddNewTaskModal extends StatefulWidget {
-  const AddNewTaskModal({super.key});
+class EditTaskModal extends StatefulWidget {
+  final Task taskRequest;
+
+  const EditTaskModal({super.key, required this.taskRequest});
 
   @override
   State<StatefulWidget> createState() {
-    return _AddNewTaskModalState();
+    return _EditTaskModalState();
   }
 }
 
-class _AddNewTaskModalState extends State<AddNewTaskModal> {
+class _EditTaskModalState extends State<EditTaskModal> {
+  late Task currentTask;
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
       TextEditingController();
 
   String? _errorText;
 
-  int? selectedFolderId;
   String? deadline;
+  int? selectedFolderId;
+  int? selectedStatus;
 
   @override
   void initState() {
     super.initState();
-
-    deadline = getToday();
-    selectedFolderId = 0;
+    currentTask = widget.taskRequest;
+    taskNameController.text = currentTask.name;
+    taskDescriptionController.text = currentTask.description;
+    deadline = currentTask.deadline;
+    selectedFolderId = currentTask.folderId;
+    selectedStatus = currentTask.status;
   }
 
-  Future<void> addNewTask() async {
-    int newTaskId;
+  Future<void> editTask() async {
     final String name = taskNameController.text;
     final String description = taskDescriptionController.text;
-    final String createDate = getToday();
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String updateDate = getToday();
 
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
-    newTaskId = getNewTaskId(prefs);
+    final updateTask = Task(currentTask.taskId, name, description, deadline!,
+        updateDate, selectedStatus!, selectedFolderId!);
 
-    final newTask = Task(newTaskId, name, description, deadline!, createDate,
-        enumToStatusIndex(Status.Todo), selectedFolderId!);
+    updateTaskList(updateTask);
 
-    updateTaskList(newTask);
-
-    updateTaskIdInFolderList(0, selectedFolderId, newTaskId);
+    updateTaskIdInFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -83,7 +82,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Add a task'),
+            const ModalTitle('Edit task'),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -124,17 +123,33 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                     )),
                 const SizedBox(height: 30),
                 SizedBox(
-                    width: 600,
-                    child: Row(
-                      children: [
-                        const Text('Select folder'),
-                        const SizedBox(width: 10),
-                        SelectFolder(
-                          onSelectFolder: _handleSelectFolder,
-                          folderId: 0,
-                        ),
-                      ],
-                    )),
+                  width: 600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Text('Select folder'),
+                          const SizedBox(width: 20),
+                          SelectFolder(
+                            onSelectFolder: _handleSelectFolder,
+                            folderId: selectedFolderId!,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text('Select status'),
+                          const SizedBox(width: 20),
+                          SelectStatus(
+                            onSelectStatus: _handleSelectStatus,
+                            status: widget.taskRequest.status,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 30),
                 SizedBox(
                   width: 600,
@@ -149,8 +164,8 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
                             ),
-                            onPressed: addNewTask,
-                            child: const Text('Add'),
+                            onPressed: editTask,
+                            child: const Text('Update'),
                           ),
                         ),
                       ),
@@ -191,6 +206,12 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
   void _handleSelectFolder(int folderId) {
     setState(() {
       selectedFolderId = folderId; // Update selectedFolderId state variable
+    });
+  }
+
+  void _handleSelectStatus(int statusIndex) {
+    setState(() {
+      selectedStatus = statusIndex;
     });
   }
 }

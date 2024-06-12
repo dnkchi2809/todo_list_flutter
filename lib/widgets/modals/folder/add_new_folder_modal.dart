@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../classes/folder.dart';
-import '../../utils/get_new_id.dart';
-import '../../utils/update_folder_list.dart';
-import '../modal_title.dart';
+import '../../../classes/folder.dart';
+import '../../../utils/get_new_id.dart';
+import '../../../utils/update_folder_list.dart';
+import '../../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
   const AddNewFolderModal({super.key});

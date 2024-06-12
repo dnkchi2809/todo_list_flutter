@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modals/add_new_task_modal.dart';
+import '../modals/task/add_new_task_modal.dart';
 
 class AddNewTaskButton extends StatelessWidget {
   const AddNewTaskButton({super.key});

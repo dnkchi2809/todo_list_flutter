@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../modals/add_new_folder_modal.dart';
+import '../modals/folder/add_new_folder_modal.dart';
 
 class AddNewFolderButton extends StatelessWidget {
   const AddNewFolderButton({super.key});

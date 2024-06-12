@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
+import 'package:todo_list_flutter/states/status_state.dart';
 
 import '../states/menu_state.dart';
 
@@ -11,6 +12,7 @@ class FolderModel extends StatelessWidget {
 
   final folderSelected = useRecoilState(folderState);
   final currentMenuState = useRecoilState(menuState);
+  final statusSelected = useRecoilState(statusState);
 
   FolderModel({super.key, required this.folder});
 
@@ -20,6 +22,7 @@ class FolderModel extends StatelessWidget {
       onTap: () {
         folderSelected.setData(folder.folderId);
         currentMenuState.setData('Detail');
+        statusSelected.setData(0);
       },
       child: Card(
         color: Colors.blue.shade100,
