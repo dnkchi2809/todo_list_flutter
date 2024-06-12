@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../classes/task.dart';
 import '../utils/status_extension.dart';
+import '../widgets/modals/delete_task_modal.dart';
 import '../widgets/modals/edit_task_modal.dart';
 
 class TaskModel extends StatelessWidget {
@@ -19,8 +20,14 @@ class TaskModel extends StatelessWidget {
     );
   }
 
-  void onClickDelete() {
-    print('onClickDelete');
+  void onClickDelete(context) {
+    showDialog<void>(
+      context: context,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return DeleteTaskModal(taskRequest: task);
+      },
+    );
   }
 
   @override
@@ -109,7 +116,7 @@ class TaskModel extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       IconButton(
-                          onPressed: onClickDelete,
+                          onPressed: () => onClickDelete(context),
                           icon: const Icon(Icons.delete_outline),
                           color: Colors.red)
                     ],

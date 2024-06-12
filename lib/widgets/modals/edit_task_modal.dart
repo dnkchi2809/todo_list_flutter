@@ -65,7 +65,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     await prefs.setStringList('tasks', taskList);
 
-    updateFolder(prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateFolderList(prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -82,7 +82,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
     return true;
   }
 
-  void updateFolder(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
+  void updateFolderList(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
 
     List<String>? folderList = prefs.getStringList('folders');
 
