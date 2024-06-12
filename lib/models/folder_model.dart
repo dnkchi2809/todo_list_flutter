@@ -5,6 +5,7 @@ import 'package:todo_list_flutter/states/folder_state.dart';
 import 'package:todo_list_flutter/states/status_state.dart';
 
 import '../states/menu_state.dart';
+import '../widgets/modals/folder/delete_folder_modal.dart';
 
 class FolderModel extends StatelessWidget {
   final Folder folder;
@@ -14,6 +15,26 @@ class FolderModel extends StatelessWidget {
   final statusSelected = useRecoilState(statusState);
 
   FolderModel({super.key, required this.folder});
+
+  void onClickEdit(context) {
+    // showDialog<void>(
+    //   context: context,
+    //   useSafeArea: true,
+    //   builder: (BuildContext context) {
+    //     return EditTaskModal(taskRequest: task);
+    //   },
+    // );
+  }
+
+  void onClickDelete(context) {
+    showDialog<void>(
+      context: context,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return DeleteFolderModal(folderRequest: folder);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +46,56 @@ class FolderModel extends StatelessWidget {
       },
       child: Card(
         color: Colors.blue.shade100,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        elevation: 2.0,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ListTile(
-              title: Text(
-                folder.name,
-                style: TextStyle(
-                    color: Colors.blue.shade900, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                folder.description,
-                overflow: TextOverflow.ellipsis,
+            Flexible(
+              flex: 7,
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          folder.name,
+                          style: TextStyle(
+                              color: Colors.blue.shade900,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          folder.description,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    ListTile(
+                        title: Text(
+                      'Tasks: ${folder.taskIds.length}',
+                      style: const TextStyle(fontSize: 12),
+                    ))
+                  ],
+                ),
               ),
             ),
-            ListTile(
-                title: Text(
-              'Tasks: ${folder.taskIds.length}',
-              style: const TextStyle(fontSize: 12),
-            ))
+            Flexible(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () => onClickEdit(context),
+                    icon: const Icon(Icons.edit_outlined),
+                    color: Colors.blue,
+                  ),
+                  IconButton(
+                      onPressed: () => onClickDelete(context),
+                      icon: const Icon(Icons.delete_outline),
+                      color: Colors.red)
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -46,7 +46,7 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ModalTitle('Delete this task: ${widget.folderRequest.name}'),
+            ModalTitle('Delete this folder: ${widget.folderRequest.name}'),
             const SizedBox(height: 30),
             const Row(
               mainAxisSize: MainAxisSize.min,

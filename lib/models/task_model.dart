@@ -53,7 +53,7 @@ class TaskModel extends StatelessWidget {
               child: Column(
                 children: [
                   Flexible(
-                    flex: 6,
+                    flex: 7,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
