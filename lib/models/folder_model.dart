@@ -6,6 +6,7 @@ import 'package:todo_list_flutter/states/status_state.dart';
 
 import '../states/menu_state.dart';
 import '../widgets/modals/folder/delete_folder_modal.dart';
+import '../widgets/modals/folder/edit_folder_modal.dart';
 
 class FolderModel extends StatelessWidget {
   final Folder folder;
@@ -17,13 +18,13 @@ class FolderModel extends StatelessWidget {
   FolderModel({super.key, required this.folder});
 
   void onClickEdit(context) {
-    // showDialog<void>(
-    //   context: context,
-    //   useSafeArea: true,
-    //   builder: (BuildContext context) {
-    //     return EditTaskModal(taskRequest: task);
-    //   },
-    // );
+    showDialog<void>(
+      context: context,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return EditFolderModal(folderRequest: folder);
+      },
+    );
   }
 
   void onClickDelete(context) {

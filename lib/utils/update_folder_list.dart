@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 
 Future<void> updateFolderList(Folder newFolder) async {
+  print(newFolder.description);
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   List<String>? folderList = prefs.getStringList('folders');
@@ -86,7 +87,5 @@ void removeInFolderList(currentFolderId, context) async {
         await prefs.setStringList('folders', folderList);
       }
     }
-
-    Navigator.pop(context);
   }
 }

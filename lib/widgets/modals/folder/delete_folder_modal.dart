@@ -25,9 +25,8 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
 
   void deleteFolder() async {
     removeInFolderList(currentFolder.folderId, context);
-
-    // updateTaskIdInFolderList(
-    //     currentFolder.folderId, null, currentFolder.folderId);
+    
+    Navigator.pop(context);
   }
 
   @override
