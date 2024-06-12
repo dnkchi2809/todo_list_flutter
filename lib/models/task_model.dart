@@ -32,8 +32,7 @@ class TaskModel extends StatelessWidget {
           Container(
             height: 15,
             decoration: BoxDecoration(
-              color: StatusExtension.colorFromStatus(StatusExtension.fromString(
-                  StatusExtension.fromInt(task.status))),
+              color: colorFromStatus(task.status),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10.0),
                   topRight: Radius.circular(10.0)),
@@ -70,16 +69,14 @@ class TaskModel extends StatelessWidget {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: StatusExtension.colorFromStatus(
-                                    StatusExtension.fromString(
-                                        StatusExtension.fromInt(task.status))),
+                                color: colorFromStatus(task.status),
                                 shape: BoxShape.rectangle,
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(5),
                                 ),
                               ),
                               padding: const EdgeInsets.all(5),
-                              child: Text(StatusExtension.fromInt(task.status)),
+                              child: Text(getValueOfStatus(task.status)),
                             ),
                             const SizedBox(
                               width: 10,

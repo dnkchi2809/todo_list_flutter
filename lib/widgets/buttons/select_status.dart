@@ -6,7 +6,8 @@ class SelectStatus extends StatefulWidget {
   final int status;
   final Function(int) onSelectStatus;
 
-  const SelectStatus({super.key, required this.onSelectStatus, required this.status});
+  const SelectStatus(
+      {super.key, required this.onSelectStatus, required this.status});
 
   @override
   State<SelectStatus> createState() => _SelectStatusState();
@@ -15,26 +16,28 @@ class SelectStatus extends StatefulWidget {
 class _SelectStatusState extends State<SelectStatus> {
   String? dropdownValue;
   late int currentStatus;
+  late List<String> selectStatusList = List.from(StatusList);
 
   @override
   void initState() {
     super.initState();
     currentStatus = widget.status;
+    selectStatusList.removeAt(0);
   }
 
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
-      initialSelection: StatusExtension.fromInt(currentStatus),
+      initialSelection: getValueOfStatus(currentStatus),
       onSelected: (String? value) {
-        widget.onSelectStatus(StatusList.indexOf(value!));
+        widget.onSelectStatus(getIndexOfStatus(value!));
 
         setState(() {
           dropdownValue = value;
         });
       },
       dropdownMenuEntries:
-          StatusList.map<DropdownMenuEntry<String>>((String status) {
+          selectStatusList.map<DropdownMenuEntry<String>>((String status) {
         return DropdownMenuEntry<String>(value: status, label: status);
       }).toList(),
     );

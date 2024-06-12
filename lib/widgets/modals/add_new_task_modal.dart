@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/const.dart';
 import '../../classes/task.dart';
 import '../../utils/get_today.dart';
+import '../../utils/status_extension.dart';
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
@@ -54,7 +55,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     newTaskId = getNewTaskId(taskList);
 
     final newTask = Task(newTaskId, name, description, deadline!, createDate,
-        Status.values.indexOf(Status.Todo), selectedFolderId!);
+        enumToStatusIndex(Status.Todo), selectedFolderId!);
 
     taskList.add(jsonEncode(newTask.toJson()));
 
