@@ -6,6 +6,7 @@ import 'package:todo_list_flutter/const.dart';
 import '../../classes/task.dart';
 import '../../utils/get_today.dart';
 import '../../utils/status_extension.dart';
+import '../../utils/update_folder_list.dart';
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../modal_title.dart';
@@ -30,7 +31,8 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
   String? deadline;
 
   @override
-  void initState() {super.initState();
+  void initState() {
+    super.initState();
 
     deadline = getToday();
     selectedFolderId = 0;
@@ -44,7 +46,6 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // await prefs.remove('tasks');
     List<String>? taskList = prefs.getStringList('tasks');
     taskList = taskList ?? [];
 
@@ -61,6 +62,8 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
 
     await prefs.setStringList('tasks', taskList.cast<String>());
 
+    updateFolderList(prefs, 0, selectedFolderId, newTaskId);
+
     Navigator.pop(context);
   }
 
@@ -76,7 +79,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     return true;
   }
 
-  int getNewTaskId(taskList){
+  int getNewTaskId(taskList) {
     if (taskList.isEmpty) {
       return 0;
     } else {
@@ -144,7 +147,10 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                       children: [
                         const Text('Select folder'),
                         const SizedBox(width: 10),
-                        SelectFolder(onSelectFolder: _handleSelectFolder, folderId: 0,),
+                        SelectFolder(
+                          onSelectFolder: _handleSelectFolder,
+                          folderId: 0,
+                        ),
                       ],
                     )),
                 const SizedBox(height: 30),
