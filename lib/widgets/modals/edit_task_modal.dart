@@ -58,14 +58,15 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     if (!isValidTask) return;
 
-    final newTask = Task(currentTask.taskId, name, description, deadline!, updateDate,
-        selectedStatus!, selectedFolderId!);
+    final newTask = Task(currentTask.taskId, name, description, deadline!,
+        updateDate, selectedStatus!, selectedFolderId!);
 
     taskList = updateTaskList(taskList, newTask);
 
     await prefs.setStringList('tasks', taskList);
 
-    updateFolderList(prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateFolderList(
+        prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -83,7 +84,6 @@ class _EditTaskModalState extends State<EditTaskModal> {
   }
 
   void updateFolderList(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
-
     List<String>? folderList = prefs.getStringList('folders');
 
     if (folderList == null) {
@@ -91,8 +91,10 @@ class _EditTaskModalState extends State<EditTaskModal> {
     }
 
     List updateTaskIds(int folderId, List taskIds) {
-      if(folderId.toInt() == newFolderId){
-        taskIds.add(taskIdToUpdate);
+      if (folderId.toInt() == newFolderId) {
+        if (!taskIds.contains(taskIdToUpdate)) {
+          taskIds.add(taskIdToUpdate);
+        }
       } else {
         taskIds.removeWhere((taskId) => taskId == taskIdToUpdate);
       }
@@ -115,8 +117,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
     prefs.setStringList('folders', folderList);
   }
 
-
-  List<String> updateTaskList (taskList, newTask){
+  List<String> updateTaskList(taskList, newTask) {
     final newTaskJson = jsonEncode(newTask.toJson());
 
     final existingTaskIndex = taskList.indexWhere((taskJson) {
@@ -189,7 +190,10 @@ class _EditTaskModalState extends State<EditTaskModal> {
                         children: [
                           const Text('Select folder'),
                           const SizedBox(width: 20),
-                          SelectFolder(onSelectFolder: _handleSelectFolder, folderId: selectedFolderId!,),
+                          SelectFolder(
+                            onSelectFolder: _handleSelectFolder,
+                            folderId: selectedFolderId!,
+                          ),
                         ],
                       ),
                       Row(

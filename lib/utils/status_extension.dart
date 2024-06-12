@@ -53,6 +53,6 @@ Color colorFromStatus(int status) {
     case 4:
       return Colors.green.shade200;
     default:
-      return Colors.black;
+      return Colors.white;
   }
 }
