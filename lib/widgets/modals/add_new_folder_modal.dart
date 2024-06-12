@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../classes/folder.dart';
 import '../../utils/get_new_id.dart';
+import '../../utils/update_folder_list.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
@@ -36,13 +37,11 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     if (!isValidFolder) return;
 
-    newFolderId = getNewFolderId(folderList);
+    newFolderId = getNewFolderId(prefs);
 
     final newFolder = Folder(newFolderId, name, description, taskIds);
 
-    folderList.add(jsonEncode(newFolder.toJson()));
-
-    await prefs.setStringList('folders', folderList);
+    updateFolderList(newFolder);
 
     Navigator.pop(context);
   }

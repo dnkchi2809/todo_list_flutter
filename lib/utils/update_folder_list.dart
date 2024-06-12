@@ -1,8 +1,29 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_list_flutter/classes/folder.dart';
 
-void updateFolderList(prevFolderId, newFolderId, taskIdToUpdate) async {
+Future<void> updateFolderList(Folder newFolder) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  List<String>? folderList = prefs.getStringList('folders');
+  folderList = folderList ?? [];
+
+  final newFolderJson = jsonEncode(newFolder.toJson());
+
+  final existingFolderIndex = folderList.indexWhere((folderJson) {
+    final folderMap = jsonDecode(folderJson);
+    return folderMap['folderId'] == newFolder.folderId;
+  });
+
+  existingFolderIndex != -1
+      ? folderList[existingFolderIndex] = newFolderJson
+      : folderList.add(newFolderJson);
+
+  await prefs.setStringList('folders', folderList);
+}
+
+void updateTaskIdInFolderList(prevFolderId, newFolderId, taskIdToUpdate) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String>? folderList = prefs.getStringList('folders');
 

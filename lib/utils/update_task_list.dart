@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> updateTaskList(newTask) async {
+import '../classes/task.dart';
+
+Future<void> updateTaskList(Task newTask) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   List<String>? taskList = prefs.getStringList('tasks');

@@ -56,7 +56,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     updateTaskList(updateTask);
 
-    updateFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateTaskIdInFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }

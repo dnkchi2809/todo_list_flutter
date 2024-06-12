@@ -57,8 +57,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
 
     updateTaskList(newTask);
 
-
-    updateFolderList(0, selectedFolderId, newTaskId);
+    updateTaskIdInFolderList(0, selectedFolderId, newTaskId);
 
     Navigator.pop(context);
   }

@@ -27,7 +27,7 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
   void deleteTask() async {
     removeInTaskList(currentTask.taskId);
 
-    updateFolderList(currentTask.folderId, null, currentTask.taskId);
+    updateTaskIdInFolderList(currentTask.folderId, null, currentTask.taskId);
 
     Navigator.pop(context);
   }
