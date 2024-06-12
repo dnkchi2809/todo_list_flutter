@@ -22,7 +22,7 @@ Future<void> initializeSharedPreferences() async {
 
     final newFolder = Folder(
         0,
-        'No folder',
+        'Default folder',
         'This is a default folder',
         []);
     folderList.add(jsonEncode(newFolder.toJson()));

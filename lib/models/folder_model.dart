@@ -80,21 +80,24 @@ class FolderModel extends StatelessWidget {
                 ),
               ),
             ),
-            Flexible(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () => onClickEdit(context),
-                    icon: const Icon(Icons.edit_outlined),
-                    color: Colors.blue,
-                  ),
-                  IconButton(
-                      onPressed: () => onClickDelete(context),
-                      icon: const Icon(Icons.delete_outline),
-                      color: Colors.red)
-                ],
+            Visibility(
+              visible: folder.folderId != 0,
+              child: Flexible(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () => onClickEdit(context),
+                      icon: const Icon(Icons.edit_outlined),
+                      color: Colors.blue,
+                    ),
+                    IconButton(
+                        onPressed: () => onClickDelete(context),
+                        icon: const Icon(Icons.delete_outline),
+                        color: Colors.red)
+                  ],
+                ),
               ),
             ),
           ],
