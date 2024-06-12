@@ -55,7 +55,7 @@ class FolderModel extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
@@ -80,10 +80,10 @@ class FolderModel extends StatelessWidget {
                 ),
               ),
             ),
-            Visibility(
-              visible: folder.folderId != 0,
-              child: Flexible(
-                flex: 2,
+            Flexible(
+              flex: 2,
+              child: Visibility(
+                visible: folder.folderId != 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
