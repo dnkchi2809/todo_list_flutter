@@ -32,100 +32,103 @@ class TaskModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            height: 15,
-            decoration: BoxDecoration(
-              color: colorFromStatus(task.status),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0)),
+    return GestureDetector(
+      onTap: () => onClickEdit(context),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 15,
+              decoration: BoxDecoration(
+                color: colorFromStatus(task.status),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0)),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 180,
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Flexible(
-                  flex: 4,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+            SizedBox(
+              height: 200,
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 6,
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                task.name,
+                                style: TextStyle(
+                                    color: Colors.blue.shade900,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                task.description,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: colorFromStatus(task.status),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(5),
+                                child: Text(getValueOfStatus(task.status)),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.black12,
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(5),
+                                child: Text(task.deadline),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              task.name,
-                              style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              task.description,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                        IconButton(
+                          onPressed: () => onClickEdit(context),
+                          icon: const Icon(Icons.edit_outlined),
+                          color: Colors.blue,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: colorFromStatus(task.status),
-                                shape: BoxShape.rectangle,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(5),
-                              child: Text(getValueOfStatus(task.status)),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.black12,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(5),
-                              child: Text(task.deadline),
-                            )
-                          ],
-                        ),
+                        IconButton(
+                            onPressed: () => onClickDelete(context),
+                            icon: const Icon(Icons.delete_outline),
+                            color: Colors.red)
                       ],
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () => onClickEdit(context),
-                        icon: const Icon(Icons.edit_outlined),
-                        color: Colors.blue,
-                      ),
-                      IconButton(
-                          onPressed: () => onClickDelete(context),
-                          icon: const Icon(Icons.delete_outline),
-                          color: Colors.red)
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

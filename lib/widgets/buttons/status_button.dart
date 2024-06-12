@@ -3,6 +3,7 @@ import 'package:flutter_recoil/flutter_recoil.dart';
 
 import '../../const.dart';
 import '../../states/status_state.dart';
+import '../../utils/status_extension.dart';
 
 class DropdownStatusButton extends RecoilWidget {
   final statusSelected = useRecoilState(statusState);
@@ -18,7 +19,7 @@ class DropdownStatusButton extends RecoilWidget {
           style: TextStyle(fontSize: 16),
         ),
         DropdownButton<String>(
-          value: statusSelected.data,
+          value: getValueOfStatus(statusSelected.data),
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           style: const TextStyle(color: Colors.deepPurple),
@@ -30,7 +31,7 @@ class DropdownStatusButton extends RecoilWidget {
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           onChanged: (String? value) {
             statusSelected
-                .setData(value!.isNotEmpty ? value : statusSelected.data);
+                .setData(value!.isNotEmpty ? getIndexOfStatus(value) : statusSelected.data);
           },
           items: StatusList.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
