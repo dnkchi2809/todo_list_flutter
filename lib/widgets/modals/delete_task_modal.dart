@@ -43,8 +43,19 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
           children: <Widget>[
             ModalTitle('Delete this task: ${widget.taskRequest.name}'),
             const SizedBox(height: 30),
+            const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.warning, color: Colors.red,),
+                Text(
+                  'This action cannot be undone!!!',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
             SizedBox(
-              width: 600,
+              width: 400,
               height: 40,
               child: Row(
                 children: [
@@ -85,5 +96,4 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
       ),
     );
   }
-
 }
