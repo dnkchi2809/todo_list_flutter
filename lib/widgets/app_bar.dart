@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'buttons/add_new_folder_button.dart';
 import 'buttons/add_new_task_button.dart';
-import 'hooks/dropdown_status.dart';
+import 'hooks/back_button_hook.dart';
+import 'hooks/dropdown_status_hook.dart';
 
 class AppBarWidget extends StatelessWidget {
   const AppBarWidget({super.key});
@@ -11,11 +12,13 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Row(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        Expanded(
+            child: Align(
+                alignment: Alignment.centerLeft, child: BackButtonHook())),
         Row(
           children: [
-            DropdownStatus(),
+            DropdownStatusHook(),
             SizedBox(width: 30),
             AddNewTaskButton(),
             SizedBox(width: 20),

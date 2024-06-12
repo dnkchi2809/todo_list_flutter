@@ -53,9 +53,8 @@ class _TasksScreenState extends State<TasksScreen> {
       if (storedTasks != null) {
         tasks = storedTasks
             .map((folderJson) => Task.fromJson(jsonDecode(folderJson)))
-            .where((task) =>
-                statusAppbarSelected.data == 0 ||
-                task.status == statusAppbarSelected.data)
+            .where((task) => (statusAppbarSelected.data == 0 ||
+                task.status == statusAppbarSelected.data))
             .toList();
       }
     });

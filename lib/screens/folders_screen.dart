@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../classes/folder.dart';
-import '../models/folder_model.dart';
+import '../widgets/hooks/folder_hook.dart';
 
 class FoldersScreen extends StatefulWidget {
   const FoldersScreen({super.key});
@@ -76,11 +76,7 @@ class _FolderScreenState extends State<FoldersScreen> {
                     final folder = folders[index];
                     return Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: FolderModel(
-                          folderName: folder.name,
-                          folderDescription: folder.description,
-                          folderQuantity: folder.taskIds.length,
-                        ));
+                        child: FolderHook(folder: folder));
                   },
                 )
               : const Text('There is no folder found. Please create new folder'),
