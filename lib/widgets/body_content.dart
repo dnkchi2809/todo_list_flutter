@@ -16,6 +16,6 @@ class BodyContent extends RecoilWidget {
   Widget build(BuildContext context) {
     return menuSelected.data == 'Folders'
         ? const FoldersScreen()
-        : const TasksScreen();
+        : TasksScreen();
   }
 }

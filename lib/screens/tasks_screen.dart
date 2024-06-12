@@ -2,12 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/models/task_model.dart';
 
+import '../states/status_state.dart';
+
 class TasksScreen extends StatefulWidget {
-  const TasksScreen({super.key});
+  final RecoilNotifier statusSelected = useRecoilState(statusState);
+
+  TasksScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -18,6 +23,7 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   late SharedPreferences prefs;
   List<Task> tasks = [];
+  late RecoilNotifier statusAppbarSelected;
 
   late Timer _timer;
 
@@ -26,6 +32,7 @@ class _TasksScreenState extends State<TasksScreen> {
     super.initState();
     _initSharedPreferences();
     _startPolling();
+    statusAppbarSelected = widget.statusSelected;
   }
 
   @override
@@ -42,10 +49,13 @@ class _TasksScreenState extends State<TasksScreen> {
   Future<void> _loadSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {
-      List<String>? storedFolders = prefs.getStringList('tasks');
-      if (storedFolders != null) {
-        tasks = storedFolders
+      List<String>? storedTasks = prefs.getStringList('tasks');
+      if (storedTasks != null) {
+        tasks = storedTasks
             .map((folderJson) => Task.fromJson(jsonDecode(folderJson)))
+            .where((task) =>
+                statusAppbarSelected.data == 0 ||
+                task.status == statusAppbarSelected.data)
             .toList();
       }
     });
@@ -79,9 +89,8 @@ class _TasksScreenState extends State<TasksScreen> {
                   },
                 )
               : const Center(
-                child: Text(
-                    'There is no task found. Please create new task'),
-              ),
+                  child: Text('There is no task found. Please create new task'),
+                ),
         ),
       ),
     );

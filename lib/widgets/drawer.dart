@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 
 import '../states/menu_state.dart';
+import '../states/status_state.dart';
 
 class DrawerWidget extends RecoilWidget {
   DrawerWidget({super.key});
 
   final menuSelected = useRecoilState(menuState);
+  final statusSelected = useRecoilState(statusState);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class DrawerWidget extends RecoilWidget {
           onTap: () {
             Navigator.pop(context);
             menuSelected.setData('Home');
+            statusSelected.setData(0);
           },
         ),
         ListTile(
@@ -34,6 +37,7 @@ class DrawerWidget extends RecoilWidget {
           onTap: () {
             Navigator.pop(context);
             menuSelected.setData('Folders');
+            statusSelected.setData(0);
           },
         ),
       ],
