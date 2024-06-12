@@ -86,7 +86,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
   }
 
   void updateFolder(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
-    print('newFolderId $newFolderId');
+
     List<String>? folderList = prefs.getStringList('folders');
 
     if (folderList == null) {
@@ -95,28 +95,25 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     List updateTaskIds(int folderId, List taskIds) {
       if(folderId.toInt() == newFolderId){
-        print('add in newFolder');
         taskIds.add(taskIdToUpdate);
       } else {
-        print('remove in prevFolder');
         taskIds.removeWhere((taskId) => taskId == taskIdToUpdate);
       }
 
       return taskIds;
     }
 
-    for (var folderJson in folderList) {
+    for (int i = 0; i < folderList.length; i++) {
+      final folderJson = folderList[i];
       final folderMap = jsonDecode(folderJson);
       final folderId = folderMap['folderId'];
-      print('folderId $folderId');
       final taskIds = List.from(folderMap['taskIds']);
       var newTaskIds = updateTaskIds(folderId, taskIds);
-      print('newTaskIds: $newTaskIds');
       folderMap['taskIds'] = newTaskIds;
-      print('folderMap[taskIds] : $folderMap[$taskIds] ');
+
+      //re-updated folderList
+      folderList[i] = jsonEncode(folderMap);
     }
-    
-    print('lastFolderList: $folderList');
 
     prefs.setStringList('folders', folderList);
   }
