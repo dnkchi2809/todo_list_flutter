@@ -58,9 +58,6 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     if (!isValidTask) return;
 
-    print(currentTask.folderId);
-    print(selectedFolderId);
-
     final newTask = Task(currentTask.taskId, name, description, deadline!, updateDate,
         selectedStatus!, selectedFolderId!);
 
@@ -158,9 +155,6 @@ class _EditTaskModalState extends State<EditTaskModal> {
                         border: const OutlineInputBorder(),
                         hintText: 'Enter task title',
                         errorText: _errorText),
-                    onChanged: (value) {
-                      print(value);
-                    },
                   ),
                 ),
                 const SizedBox(height: 30),
