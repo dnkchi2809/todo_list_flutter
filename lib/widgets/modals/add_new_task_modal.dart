@@ -144,7 +144,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                       children: [
                         const Text('Select folder'),
                         const SizedBox(width: 10),
-                        SelectFolder(onSelectFolder: _handleSelectFolder),
+                        SelectFolder(onSelectFolder: _handleSelectFolder, folderId: 0,),
                       ],
                     )),
                 const SizedBox(height: 30),

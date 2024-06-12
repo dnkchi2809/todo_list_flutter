@@ -12,7 +12,7 @@ class AddNewFolderButton extends StatelessWidget {
           context: context,
           useSafeArea: true,
           builder: (BuildContext context) {
-            return AddNewFolderModal();
+            return const AddNewFolderModal();
           },
         );
       },

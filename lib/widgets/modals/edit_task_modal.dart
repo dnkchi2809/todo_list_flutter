@@ -189,7 +189,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
                         children: [
                           const Text('Select folder'),
                           const SizedBox(width: 20),
-                          SelectFolder(onSelectFolder: _handleSelectFolder),
+                          SelectFolder(onSelectFolder: _handleSelectFolder, folderId: selectedFolderId!,),
                         ],
                       ),
                       Row(

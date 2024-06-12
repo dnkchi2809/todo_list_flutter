@@ -28,7 +28,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // await prefs.remove('folders');
     List<String>? folderList = prefs.getStringList('folders');
     folderList = folderList ?? [];
 

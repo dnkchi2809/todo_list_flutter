@@ -44,13 +44,13 @@ String getValueOfStatus(int status) {
 
 Color colorFromStatus(int status) {
   switch (status) {
-    case 0:
-      return Colors.grey.shade300;
     case 1:
-      return Colors.yellow.shade200;
+      return Colors.grey.shade300;
     case 2:
-      return Colors.orange.shade200;
+      return Colors.yellow.shade200;
     case 3:
+      return Colors.orange.shade200;
+    case 4:
       return Colors.green.shade200;
     default:
       return Colors.black;
