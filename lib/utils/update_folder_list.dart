@@ -1,6 +1,9 @@
 import 'dart:convert';
 
-void updateFolderList(prefs, prevFolderId, newFolderId, taskIdToUpdate) {
+import 'package:shared_preferences/shared_preferences.dart';
+
+void updateFolderList(prevFolderId, newFolderId, taskIdToUpdate) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String>? folderList = prefs.getStringList('folders');
 
   if (folderList == null) {

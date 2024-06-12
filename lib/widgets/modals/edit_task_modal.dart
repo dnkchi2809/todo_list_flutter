@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../classes/task.dart';
 import '../../utils/get_today.dart';
 import '../../utils/update_folder_list.dart';
+import '../../utils/update_task_list.dart';
 import '../buttons/date_picker.dart';
 import '../buttons/select_folder.dart';
 import '../buttons/select_status.dart';
@@ -49,25 +47,16 @@ class _EditTaskModalState extends State<EditTaskModal> {
     final String description = taskDescriptionController.text;
     final String updateDate = getToday();
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // await prefs.remove('tasks');
-    List<String>? taskList = prefs.getStringList('tasks');
-    taskList = taskList ?? [];
-
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
-    final newTask = Task(currentTask.taskId, name, description, deadline!,
+    final updateTask = Task(currentTask.taskId, name, description, deadline!,
         updateDate, selectedStatus!, selectedFolderId!);
 
-    taskList = updateTaskList(taskList, newTask);
+    updateTaskList(updateTask);
 
-    await prefs.setStringList('tasks', taskList);
-
-    updateFolderList(
-        prefs, currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -82,21 +71,6 @@ class _EditTaskModalState extends State<EditTaskModal> {
     }
 
     return true;
-  }
-
-  List<String> updateTaskList(taskList, newTask) {
-    final newTaskJson = jsonEncode(newTask.toJson());
-
-    final existingTaskIndex = taskList.indexWhere((taskJson) {
-      final taskMap = jsonDecode(taskJson);
-      return taskMap['taskId'] == newTask.taskId;
-    });
-
-    existingTaskIndex != -1
-        ? taskList[existingTaskIndex] = newTaskJson
-        : taskList.add(newTaskJson);
-
-    return taskList;
   }
 
   @override

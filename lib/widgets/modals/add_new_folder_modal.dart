@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../classes/folder.dart';
+import '../../utils/get_new_id.dart';
 import '../modal_title.dart';
 
 class AddNewFolderModal extends StatefulWidget {
@@ -38,7 +39,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     newFolderId = getNewFolderId(folderList);
 
     final newFolder = Folder(newFolderId, name, description, taskIds);
-    print(newFolder);
 
     folderList.add(jsonEncode(newFolder.toJson()));
 
@@ -68,13 +68,6 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     }
 
     return true;
-  }
-
-  int getNewFolderId(folderList){
-    var lastFolder =
-    Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
-    var lastFolderIdInList = lastFolder.folderId;
-    return lastFolderIdInList + 1;
   }
 
   @override

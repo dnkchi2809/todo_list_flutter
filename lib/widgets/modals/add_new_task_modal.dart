@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/const.dart';
+import 'package:todo_list_flutter/utils/update_task_list.dart';
 import '../../classes/task.dart';
+import '../../utils/get_new_id.dart';
 import '../../utils/get_today.dart';
 import '../../utils/status_extension.dart';
 import '../../utils/update_folder_list.dart';
@@ -46,23 +46,19 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<String>? taskList = prefs.getStringList('tasks');
-    taskList = taskList ?? [];
-
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
-    newTaskId = getNewTaskId(taskList);
+    newTaskId = getNewTaskId(prefs);
 
     final newTask = Task(newTaskId, name, description, deadline!, createDate,
         enumToStatusIndex(Status.Todo), selectedFolderId!);
 
-    taskList.add(jsonEncode(newTask.toJson()));
+    updateTaskList(newTask);
 
-    await prefs.setStringList('tasks', taskList.cast<String>());
 
-    updateFolderList(prefs, 0, selectedFolderId, newTaskId);
+    updateFolderList(0, selectedFolderId, newTaskId);
 
     Navigator.pop(context);
   }
@@ -77,16 +73,6 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     }
 
     return true;
-  }
-
-  int getNewTaskId(taskList) {
-    if (taskList.isEmpty) {
-      return 0;
-    } else {
-      var lastTask = Task.fromJson(jsonDecode(taskList[taskList.length - 1]));
-      var lastTaskIdInList = lastTask.taskId;
-      return lastTaskIdInList + 1;
-    }
   }
 
   @override
@@ -113,9 +99,6 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                         border: const OutlineInputBorder(),
                         hintText: 'Enter task title',
                         errorText: _errorText),
-                    onChanged: (value) {
-                      print(value);
-                    },
                   ),
                 ),
                 const SizedBox(height: 30),
