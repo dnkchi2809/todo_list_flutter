@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 
@@ -58,7 +59,7 @@ void updateTaskIdInFolderList(prevFolderId, newFolderId, taskIdToUpdate) async {
   prefs.setStringList('folders', folderList);
 }
 
-Future<int> removeInFolderList (currentFolderId) async {
+void removeInFolderList(currentFolderId, context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   List<String>? folderList = prefs.getStringList('folders');
@@ -69,15 +70,23 @@ Future<int> removeInFolderList (currentFolderId) async {
     final folderMap = jsonDecode(folderJson);
     final taskId = folderMap['folderId'];
 
-    if(folderMap['taskIds'].length > 0){
-      return folderMap['taskIds'].length;
+    if (taskId == currentFolderId) {
+      if (folderMap['taskIds'].length > 0) {
+        ScaffoldMessenger.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text(
+                "Cannot delete! This folder still contains ${folderMap['taskIds'].length} tasks"),
+            backgroundColor: Colors.red,
+            duration: const Duration(milliseconds: 2000),
+          ));
+      } else {
+        folderList.removeAt(i);
+
+        await prefs.setStringList('folders', folderList);
+      }
     }
 
-    if(taskId == currentFolderId){
-      folderList.removeAt(i);
-    }
+    Navigator.pop(context);
   }
-
-  await prefs.setStringList('folders', folderList);
-  return 0;
 }

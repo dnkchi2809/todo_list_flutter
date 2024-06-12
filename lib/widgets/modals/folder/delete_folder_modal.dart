@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../classes/folder.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../modal_title.dart';
-import '../notifications/show_toast.dart';
 
 class DeleteFolderModal extends StatefulWidget {
   final Folder folderRequest;
@@ -25,16 +24,10 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
   }
 
   void deleteFolder() async {
-    int tasksInFolder = removeInFolderList(currentFolder.folderId) as int;
+    removeInFolderList(currentFolder.folderId, context);
 
-    if (tasksInFolder != 0) {
-      updateTaskIdInFolderList(
-          currentFolder.folderId, null, currentFolder.folderId);
-
-      Navigator.pop(context);
-    } else {
-      showToast("Folder still contains $tasksInFolder tasks");
-    }
+    // updateTaskIdInFolderList(
+    //     currentFolder.folderId, null, currentFolder.folderId);
   }
 
   @override
