@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_list_flutter/classes/folder.dart';
 import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
 
@@ -26,17 +27,19 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
   late SharedPreferences prefs;
   List<Task> tasks = [];
   late RecoilNotifier statusAppbarSelected;
-  late RecoilNotifier folderDetailsSelected;
+  late Folder folderDetailsSelected;
 
   late Timer _timer;
 
   @override
   void initState() {
+    statusAppbarSelected = widget.statusSelected;
+    folderDetailsSelected = widget.folderSelected.data;
+    print(folderDetailsSelected.name);
     super.initState();
     _initSharedPreferences();
     _startPolling();
-    statusAppbarSelected = widget.statusSelected;
-    folderDetailsSelected = widget.folderSelected;
+
   }
 
   @override
@@ -58,18 +61,39 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
         tasks = storedTasks
             .map((folderJson) => Task.fromJson(jsonDecode(folderJson)))
             .where((task) =>
-                task.folderId == folderDetailsSelected.data &&
-                (statusAppbarSelected.data == 0 ||
-                    task.status == statusAppbarSelected.data))
+        task.folderId == folderDetailsSelected.folderId &&
+        (statusAppbarSelected.data == 0 ||
+            task.status == statusAppbarSelected.data))
             .toList();
       }
     });
+
   }
 
   void _startPolling() {
     _timer = Timer.periodic(const Duration(seconds: 0), (timer) {
       _loadSharedPreferences();
     });
+  }
+
+  void onClickEdit(context) {
+    // showDialog<void>(
+    //   context: context,
+    //   useSafeArea: true,
+    //   builder: (BuildContext context) {
+    //     return EditFolderModal(folderRequest: folderDetailsSelected);
+    //   },
+    // );
+  }
+
+  void onClickDelete(context) {
+    // showDialog<void>(
+    //   context: context,
+    //   useSafeArea: true,
+    //   builder: (BuildContext context) {
+    //     return DeleteFolderModal(folderRequest: folderDetailsSelected);
+    //   },
+    // );
   }
 
   @override
@@ -81,10 +105,13 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
           child: tasks.isNotEmpty
               ? GridView.builder(
                   itemCount: tasks.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 5, // 4 columns
-                    crossAxisSpacing: 3.0, // Horizontal space between each item
-                    mainAxisSpacing: 4.0, // Vertical space between each item
+                    crossAxisSpacing:
+                        3.0, // Horizontal space between each item
+                    mainAxisSpacing:
+                        4.0, // Vertical space between each item
                   ),
                   itemBuilder: (context, index) {
                     final task = tasks[index];
@@ -93,8 +120,9 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
                         child: TaskModel(task: task));
                   },
                 )
-              : const Center(
-                  child: Text('There is no task found. Please create new task'),
+          :const Center(
+                  child: Text(
+                      'There is no task found. Please create new task'),
                 ),
         ),
       ),

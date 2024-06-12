@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
@@ -20,7 +19,7 @@ class FolderModel extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        folderSelected.setData(folder.folderId);
+        folderSelected.setData(folder);
         currentMenuState.setData('Detail');
         statusSelected.setData(0);
       },

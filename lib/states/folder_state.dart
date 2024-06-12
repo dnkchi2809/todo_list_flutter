@@ -1,6 +1,10 @@
 import 'package:flutter_recoil/flutter_recoil.dart';
+import 'package:todo_list_flutter/classes/folder.dart';
 
-final folderState = Atom<int>(
+final folderState = Atom<Folder>(
   key: 'folder_state',
-  defaultValue: -1,
+  defaultValue: Folder(0,
+      'No folder',
+      'This is a default folder',
+      []),
 );

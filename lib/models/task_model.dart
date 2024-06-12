@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../classes/task.dart';
 import '../utils/status_extension.dart';
-import '../widgets/modals/delete_task_modal.dart';
-import '../widgets/modals/edit_task_modal.dart';
+import '../widgets/modals/task/delete_task_modal.dart';
+import '../widgets/modals/task/edit_task_modal.dart';
 
 class TaskModel extends StatelessWidget {
   final Task task;
