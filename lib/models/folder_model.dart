@@ -5,7 +5,6 @@ import 'package:todo_list_flutter/classes/folder.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
 
 import '../states/menu_state.dart';
-import '../widgets/hooks/folder_detail_hook.dart';
 
 class FolderModel extends StatelessWidget {
   final Folder folder;
@@ -21,8 +20,6 @@ class FolderModel extends StatelessWidget {
       onTap: () {
         folderSelected.setData(folder.folderId);
         currentMenuState.setData('Detail');
-        Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => const FolderDetailHook()));
       },
       child: Card(
         color: Colors.blue.shade100,

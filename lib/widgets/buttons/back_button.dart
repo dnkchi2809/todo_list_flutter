@@ -13,8 +13,6 @@ class BackButtonInDetailScreen extends RecoilWidget {
       visible: currentMenuState.data == "Detail",
       child: TextButton.icon(
         onPressed: () {
-          // Navigate back to first route when tapped.
-          Navigator.pop(context);
           currentMenuState.setData('Folders');
         },
         icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.blue,),

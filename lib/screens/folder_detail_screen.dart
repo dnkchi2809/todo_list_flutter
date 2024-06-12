@@ -7,9 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
 
+import '../models/task_model.dart';
 import '../states/status_state.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/hooks/menu_hook.dart';
 
 class FolderDetailScreen extends StatefulWidget {
   final RecoilNotifier statusSelected = useRecoilState(statusState);
@@ -76,33 +75,28 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: const AppBarWidget(),
-      ),
-      drawer: const MenuHook(),
       body: Center(
-        child: Text('FolderDetailScreen'),
-        // child: SizedBox(
-        //   width: 1200,
-        //   child: tasks.isNotEmpty
-        //       ? GridView.builder(
-        //           itemCount: tasks.length,
-        //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //             crossAxisCount: 5, // 4 columns
-        //             crossAxisSpacing: 3.0, // Horizontal space between each item
-        //             mainAxisSpacing: 4.0, // Vertical space between each item
-        //           ),
-        //           itemBuilder: (context, index) {
-        //             final task = tasks[index];
-        //             return Padding(
-        //                 padding: const EdgeInsets.all(10.0),
-        //                 child: TaskModel(task: task));
-        //           },
-        //         )
-        //       : const Center(
-        //           child: Text('There is no task found. Please create new task'),
-        //         ),
-        // ),
+        child: SizedBox(
+          width: 1200,
+          child: tasks.isNotEmpty
+              ? GridView.builder(
+                  itemCount: tasks.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5, // 4 columns
+                    crossAxisSpacing: 3.0, // Horizontal space between each item
+                    mainAxisSpacing: 4.0, // Vertical space between each item
+                  ),
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TaskModel(task: task));
+                  },
+                )
+              : const Center(
+                  child: Text('There is no task found. Please create new task'),
+                ),
+        ),
       ),
     );
   }
