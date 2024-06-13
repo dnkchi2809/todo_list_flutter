@@ -3,6 +3,7 @@ import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:todo_list_flutter/widgets/app_bar.dart';
 import 'package:todo_list_flutter/widgets/hooks/body_hook.dart';
 import 'package:todo_list_flutter/widgets/hooks/menu_hook.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
             drawer: const MenuHook(),
           ),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
         );
       },
     );

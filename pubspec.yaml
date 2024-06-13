@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_recoil: ^0.1.0
   shared_preferences: ^2.2.3
+  flutter_localizations:
+    sdk: flutter
   intl: ^0.19.0
 
 
@@ -61,6 +63,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

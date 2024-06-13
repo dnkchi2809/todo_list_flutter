@@ -4,6 +4,7 @@ import 'package:flutter_recoil/flutter_recoil.dart';
 
 import '../states/menu_state.dart';
 import '../states/status_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerWidget extends RecoilWidget {
   DrawerWidget({super.key});
@@ -25,7 +26,7 @@ class DrawerWidget extends RecoilWidget {
           )),
         ),
         ListTile(
-          title: const Text("Home"),
+          title: Text(AppLocalizations.of(context)!.home),
           onTap: () {
             Navigator.pop(context);
             menuSelected.setData('Home');
