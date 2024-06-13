@@ -12,7 +12,7 @@
   "done": "Done",
 
   "addNewTask": "Add new task",
-  "editTask": "Edit this task: ",
+  "editTask": "Edit this task",
   "deleteTask": "Delete this task: ",
 
   "addNewFolder": "Add new folder",
