@@ -38,7 +38,7 @@ class DropdownStatusButton extends RecoilWidget {
             String valueByLocale;
             switch (value){
               case "To do":
-                valueByLocale = AppLocalizations.of(context)!.all;
+                valueByLocale = AppLocalizations.of(context)!.toDo;
                 break;
               case "In progress":
                 valueByLocale = AppLocalizations.of(context)!.inProgress;

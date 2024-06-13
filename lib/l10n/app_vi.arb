@@ -6,7 +6,7 @@
 
   "status": "Trạng thái: ",
   "all": "Tất cả",
-  "todo": "Cần làm",
+  "toDo": "Cần làm",
   "inProgress": "Đang làm",
   "pending": "Tạm hoãn",
   "done": "Xong",

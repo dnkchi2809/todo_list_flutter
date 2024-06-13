@@ -6,7 +6,7 @@
 
   "status": "Status: ",
   "all": "All",
-  "todo": "Todo",
+  "toDo": "To do",
   "inProgress": "In Progress",
   "pending": "Pending",
   "done": "Done",

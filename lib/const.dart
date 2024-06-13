@@ -2,7 +2,7 @@ enum Status {All, Todo, InProgress, Pending, Done }
 
 const List<String> StatusList = <String>[
   'All',
-  'Todo',
+  'To do',
   'In progress',
   'Pending',
   'Done'

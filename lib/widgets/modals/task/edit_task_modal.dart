@@ -7,6 +7,7 @@ import '../../buttons/date_picker.dart';
 import '../../buttons/select_folder.dart';
 import '../../buttons/select_status.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditTaskModal extends StatefulWidget {
   final Task taskRequest;
@@ -65,7 +66,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
     //check inputName not empty
     if (inputName.toString().isEmpty) {
       setState(() {
-        _errorText = 'Task title is not empty.';
+        _errorText = AppLocalizations.of(context)!.taskTitleIsEmpty;
       });
       return false;
     }
@@ -82,7 +83,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Edit task'),
+            ModalTitle(AppLocalizations.of(context)!.editTask),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,10 +93,10 @@ class _EditTaskModalState extends State<EditTaskModal> {
                   child: TextField(
                     controller: taskNameController,
                     decoration: InputDecoration(
-                        label: const Text('Task title'),
+                        label: Text(AppLocalizations.of(context)!.taskTitle),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
-                        hintText: 'Enter task title',
+                        hintText: AppLocalizations.of(context)!.enterTaskTitle,
                         errorText: _errorText),
                   ),
                 ),
@@ -104,11 +105,11 @@ class _EditTaskModalState extends State<EditTaskModal> {
                   width: 600,
                   child: TextField(
                     controller: taskDescriptionController,
-                    decoration: const InputDecoration(
-                      label: Text('Description'),
+                    decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.description),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter task description (optional)',
+                      border: const OutlineInputBorder(),
+                      hintText: AppLocalizations.of(context)!.enterTaskDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6, // Set this
@@ -129,7 +130,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
                     children: [
                       Row(
                         children: [
-                          const Text('Select folder'),
+                          Text(AppLocalizations.of(context)!.selectFolder),
                           const SizedBox(width: 20),
                           SelectFolder(
                             onSelectFolder: _handleSelectFolder,
@@ -139,7 +140,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
                       ),
                       Row(
                         children: [
-                          const Text('Select status'),
+                          Text(AppLocalizations.of(context)!.selectStatus),
                           const SizedBox(width: 20),
                           SelectStatus(
                             onSelectStatus: _handleSelectStatus,
@@ -165,7 +166,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: editTask,
-                            child: const Text('Update'),
+                            child: Text(AppLocalizations.of(context)!.update),
                           ),
                         ),
                       ),
@@ -181,7 +182,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                         ),
                       ),
