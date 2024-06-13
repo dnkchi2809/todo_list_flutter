@@ -69,27 +69,30 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 1200,
-          child: tasks.isNotEmpty
-              ? GridView.builder(
-                  itemCount: tasks.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5, // 4 columns
-                    crossAxisSpacing: 3.0, // Horizontal space between each item
-                    mainAxisSpacing: 4.0, // Vertical space between each item
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 80),
+        child: Center(
+          child: SizedBox(
+            width: 1200,
+            child: tasks.isNotEmpty
+                ? GridView.builder(
+                    itemCount: tasks.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5, // 4 columns
+                      crossAxisSpacing: 3.0, // Horizontal space between each item
+                      mainAxisSpacing: 50.0, // Vertical space between each item
+                    ),
+                    itemBuilder: (context, index) {
+                      final task = tasks[index];
+                      return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: TaskModel(task: task));
+                    },
+                  )
+                : const Center(
+                    child: Text('There is no task found. Please create new task'),
                   ),
-                  itemBuilder: (context, index) {
-                    final task = tasks[index];
-                    return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TaskModel(task: task));
-                  },
-                )
-              : const Center(
-                  child: Text('There is no task found. Please create new task'),
-                ),
+          ),
         ),
       ),
     );
