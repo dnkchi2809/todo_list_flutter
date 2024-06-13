@@ -24,7 +24,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
   late Task currentTask;
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
-      TextEditingController();
+  TextEditingController();
 
   String? _errorText;
 

@@ -55,7 +55,7 @@ class _TasksScreenState extends State<TasksScreen> {
         tasks = storedTasks
             .map((folderJson) => Task.fromJson(jsonDecode(folderJson)))
             .where((task) => (statusAppbarSelected.data == 0 ||
-                task.status == statusAppbarSelected.data))
+            task.status == statusAppbarSelected.data))
             .toList();
       }
     });
@@ -77,24 +77,24 @@ class _TasksScreenState extends State<TasksScreen> {
             width: 1200,
             child: tasks.isNotEmpty
                 ? GridView.builder(
-                    itemCount: tasks.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5, // 4 columns
-                      crossAxisSpacing:
-                          3.0, // Horizontal space between each item
-                      mainAxisSpacing: 50.0, // Vertical space between each item
-                    ),
-                    itemBuilder: (context, index) {
-                      final task = tasks[index];
-                      return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: TaskModel(task: task));
-                    },
-                  )
+              itemCount: tasks.length,
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5, // 4 columns
+                crossAxisSpacing:
+                3.0, // Horizontal space between each item
+                mainAxisSpacing: 50.0, // Vertical space between each item
+              ),
+              itemBuilder: (context, index) {
+                final task = tasks[index];
+                return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TaskModel(task: task));
+              },
+            )
                 : Center(
-                    child: Text(AppLocalizations.of(context)!.noTaskFound),
-                  ),
+              child: Text(AppLocalizations.of(context)!.noTaskFound),
+            ),
           ),
         ),
       ),

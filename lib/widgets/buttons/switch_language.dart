@@ -1,11 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_recoil/flutter_recoil.dart';
+import 'package:todo_list_flutter/states/language_state.dart';
 
 class SwitchLanguage extends StatefulWidget {
-  const SwitchLanguage({super.key});
+  SwitchLanguage({super.key});
+  final RecoilNotifier languageSelected = useRecoilState(languageState);
 
   @override
   State<StatefulWidget> createState() {
@@ -14,44 +14,20 @@ class SwitchLanguage extends StatefulWidget {
 }
 
 class _SwitchLanguageState extends State<SwitchLanguage> {
-  late SharedPreferences prefs;
-  late String localeString;
-  late Timer _timer;
+  late RecoilNotifier languageAppbarSelected;
 
   @override
   void initState() {
-    localeString = 'en';
+    languageAppbarSelected = widget.languageSelected;
+
     super.initState();
-    _initSharedPreferences();
-    _startPolling();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  Future<void> _initSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    _loadSharedPreferences();
-  }
-
-  Future<void> _loadSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    localeString = prefs.getString('language') ?? 'en';
-  }
-
-  void _startPolling() {
-    _timer = Timer.periodic(const Duration(seconds: 0), (timer) {
-      _loadSharedPreferences();
-    });
   }
 
   void switchLanguage() {
-    prefs.getString('language') == 'vi'
-        ? prefs.setString('language', 'en')
-        : prefs.setString('language', 'vi');
+    languageAppbarSelected.data == 'en'
+        ? languageAppbarSelected.setData('vi')
+        : languageAppbarSelected.setData('en');
+    print(languageAppbarSelected.data);
   }
 
   @override

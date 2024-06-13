@@ -19,7 +19,7 @@ class AddNewFolderModal extends StatefulWidget {
 class _AddNewFolderModalState extends State<AddNewFolderModal> {
   final TextEditingController folderNameController = TextEditingController();
   final TextEditingController folderDescriptionController =
-      TextEditingController();
+  TextEditingController();
 
   String? _errorText;
 

@@ -54,7 +54,7 @@ class _MyHomePageState extends State<DatePickerDemo> {
           ),
           onTap: () => _selectDate(context),
           onChanged: (value) =>
-              {widget.onSelectDeadline(taskDeadlineController.text)},
+          {widget.onSelectDeadline(taskDeadlineController.text)},
         ),
       ],
     );

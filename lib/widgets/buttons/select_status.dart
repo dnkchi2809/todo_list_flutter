@@ -57,7 +57,7 @@ class _SelectStatusState extends State<SelectStatus> {
                 valueByLocale = AppLocalizations.of(context)!.all;
                 break;
             }
-        return DropdownMenuEntry<String>(value: status, label: valueByLocale);
+            return DropdownMenuEntry<String>(value: status, label: valueByLocale);
       }).toList(),
     );
   }

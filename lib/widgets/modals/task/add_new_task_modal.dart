@@ -24,7 +24,7 @@ class AddNewTaskModal extends StatefulWidget {
 class _AddNewTaskModalState extends State<AddNewTaskModal> {
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
-      TextEditingController();
+  TextEditingController();
 
   String? _errorText;
 
@@ -84,7 +84,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-           ModalTitle(AppLocalizations.of(context)!.addNewTask),
+            ModalTitle(AppLocalizations.of(context)!.addNewTask),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
