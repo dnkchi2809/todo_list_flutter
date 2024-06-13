@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../modals/folder/add_new_folder_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewFolderButton extends StatelessWidget {
   const AddNewFolderButton({super.key});
@@ -25,7 +26,7 @@ class AddNewFolderButton extends StatelessWidget {
         size: 30,
         color: Colors.black54,
       ),
-      tooltip: 'Add  new folder',
+      tooltip: AppLocalizations.of(context)!.addNewFolder,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../modals/task/add_new_task_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewTaskButton extends StatelessWidget {
   const AddNewTaskButton({super.key});
@@ -26,7 +27,7 @@ class AddNewTaskButton extends StatelessWidget {
         size: 30,
         color: Colors.black54,
       ),
-      tooltip: 'Add new todo',
+      tooltip: AppLocalizations.of(context)!.addNewTask,
     );
   }
 }

@@ -10,6 +10,7 @@ import '../../../utils/update_folder_list.dart';
 import '../../buttons/date_picker.dart';
 import '../../buttons/select_folder.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewTaskModal extends StatefulWidget {
   const AddNewTaskModal({super.key});
@@ -66,7 +67,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     //check inputName not empty
     if (inputName.toString().isEmpty) {
       setState(() {
-        _errorText = 'Task title is not empty.';
+        _errorText = AppLocalizations.of(context)!.taskTitleIsEmpty;
       });
       return false;
     }
@@ -83,7 +84,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Add a task'),
+           ModalTitle(AppLocalizations.of(context)!.addNewTask),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -93,10 +94,10 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                   child: TextField(
                     controller: taskNameController,
                     decoration: InputDecoration(
-                        label: const Text('Task title'),
+                        label: Text(AppLocalizations.of(context)!.taskTitle),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: const OutlineInputBorder(),
-                        hintText: 'Enter task title',
+                        hintText: AppLocalizations.of(context)!.enterTaskTitle,
                         errorText: _errorText),
                   ),
                 ),
@@ -105,11 +106,11 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                   width: 600,
                   child: TextField(
                     controller: taskDescriptionController,
-                    decoration: const InputDecoration(
-                      label: Text('Description'),
+                    decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.description),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter task description (optional)',
+                      border: const OutlineInputBorder(),
+                      hintText: AppLocalizations.of(context)!.enterTaskDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6, // Set this
@@ -127,7 +128,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                     width: 600,
                     child: Row(
                       children: [
-                        const Text('Select folder'),
+                        Text(AppLocalizations.of(context)!.selectFolder),
                         const SizedBox(width: 10),
                         SelectFolder(
                           onSelectFolder: _handleSelectFolder,
@@ -150,7 +151,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: addNewTask,
-                            child: const Text('Add'),
+                            child: Text(AppLocalizations.of(context)!.add),
                           ),
                         ),
                       ),
@@ -166,7 +167,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                         ),
                       ),

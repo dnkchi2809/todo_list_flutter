@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/utils/get_today.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DatePickerDemo extends StatefulWidget {
   late final Function(String) onSelectDeadline;
@@ -46,10 +47,10 @@ class _MyHomePageState extends State<DatePickerDemo> {
       children: <Widget>[
         TextFormField(
           controller: taskDeadlineController,
-          decoration: const InputDecoration(
-            label: Text('Deadline'),
+          decoration: InputDecoration(
+            label: Text(AppLocalizations.of(context)!.deadline),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           ),
           onTap: () => _selectDate(context),
           onChanged: (value) =>

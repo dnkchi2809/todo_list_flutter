@@ -5,6 +5,7 @@ import '../../../classes/folder.dart';
 import '../../../utils/get_new_id.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewFolderModal extends StatefulWidget {
   const AddNewFolderModal({super.key});
@@ -50,7 +51,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
     //check inputName not empty
     if (inputName.toString().isEmpty) {
       setState(() {
-        _errorText = 'Folder name is not empty.';
+        _errorText = AppLocalizations.of(context)!.folderNameIsEmpty;
       });
       return false;
     }
@@ -60,7 +61,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
       Folder folder = Folder.fromJson(jsonDecode(folderJson));
       if (folder.name == inputName) {
         setState(() {
-          _errorText = 'Folder with the name "$inputName" already exists.';
+          _errorText = AppLocalizations.of(context)!.folderWithName + inputName +  AppLocalizations.of(context)!.alreadyExist;
         });
         return false;
       }
@@ -78,7 +79,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Add new folder'),
+            ModalTitle(AppLocalizations.of(context)!.addNewFolder),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -88,10 +89,10 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                   child: TextField(
                     controller: folderNameController,
                     decoration: InputDecoration(
-                      labelText: 'Folder name',
+                      labelText: AppLocalizations.of(context)!.folderName,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: 'Enter folder name',
+                      hintText: AppLocalizations.of(context)!.enterFolderName,
                       errorText: _errorText,
                     ),
                     onChanged: (value) {
@@ -106,11 +107,11 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                   width: 600,
                   child: TextField(
                     controller: folderDescriptionController,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.description,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter folder description (optional)',
+                      border: const OutlineInputBorder(),
+                      hintText: AppLocalizations.of(context)!.enterFolderDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6,
@@ -132,7 +133,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: addNewFolder,
-                            child: const Text('Add'),
+                            child: Text(AppLocalizations.of(context)!.add),
                           ),
                         ),
                       ),
@@ -148,7 +149,7 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                         ),
                       ),

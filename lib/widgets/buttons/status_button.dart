@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../const.dart';
 import '../../states/status_state.dart';
@@ -14,9 +15,9 @@ class DropdownStatusButton extends RecoilWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text(
-          'Status: ',
-          style: TextStyle(fontSize: 16),
+        Text(
+          AppLocalizations.of(context)!.status,
+          style: const TextStyle(fontSize: 16),
         ),
         DropdownButton<String>(
           value: getValueOfStatus(statusSelected.data),
@@ -34,10 +35,28 @@ class DropdownStatusButton extends RecoilWidget {
                 .setData(value!.isNotEmpty ? getIndexOfStatus(value) : statusSelected.data);
           },
           items: StatusList.map<DropdownMenuItem<String>>((String value) {
+            String valueByLocale;
+            switch (value){
+              case "To do":
+                valueByLocale = AppLocalizations.of(context)!.all;
+                break;
+              case "In progress":
+                valueByLocale = AppLocalizations.of(context)!.inProgress;
+                break;
+              case "Pending":
+                valueByLocale = AppLocalizations.of(context)!.pending;
+                break;
+              case "Done":
+                valueByLocale = AppLocalizations.of(context)!.done;
+                break;
+              default:
+                valueByLocale = AppLocalizations.of(context)!.all;
+                break;
+            }
             return DropdownMenuItem<String>(
               value: value,
               child: Text(
-                value,
+                valueByLocale,
                 style: TextStyle(
                     color: value == statusSelected.data
                         ? Colors.blue

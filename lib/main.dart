@@ -16,6 +16,7 @@ void main() async {
 
 Future<void> initializeSharedPreferences() async {
   final prefs = await SharedPreferences.getInstance();
+  prefs.clear();
 
   if (!prefs.containsKey('folders')) {
     List<String>? folderList = [];
@@ -31,6 +32,6 @@ Future<void> initializeSharedPreferences() async {
   }
 
   if (!prefs.containsKey('language')) {
-    await prefs.setString('folders', 'en');
+    await prefs.setString('language', 'en');
   }
 }

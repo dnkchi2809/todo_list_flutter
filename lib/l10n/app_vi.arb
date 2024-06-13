@@ -1,4 +1,44 @@
 {
+  "language": "English",
+
   "home": "Trang chủ",
-  "language": "English"
+  "folders": "Thư mục",
+
+  "status": "Trạng thái: ",
+  "all": "Tất cả",
+  "todo": "Cần làm",
+  "inProgress": "Đang làm",
+  "pending": "Tạm hoãn",
+  "done": "Xong",
+
+  "addNewTask": "Tạo nhiệm vụ mới",
+  "editTask": "Chỉnh sửa nhiệm vụ: ",
+  "deleteTask": "Xoá nhiệm vụ: ",
+
+  "addNewFolder": "Tạo thư mục mới",
+  "editFolder": "Chỉnh sửa thư mục",
+  "deleteFolder": "Xoá thư mục: ",
+
+  "noTaskFound": "Chưa có nhiệm vụ. Hãy tạo nhiệm vụ mới!",
+  "taskTitle": "Tiêu đề",
+  "enterTaskTitle": "Nhập nhiệm vụ cần làm",
+  "taskTitleIsEmpty": "Tiêu đề không được để trống",
+  "description": "Mô tả",
+  "enterTaskDescription": "Mô tả chi tiết nhiệm vụ (không bắt buộc)",
+  "deadline": "Hạn cuối",
+  "selectFolder": "Chọn thư mục",
+  "selectStatus": "Chọn trạng thái",
+  "add": "Tạo",
+  "update": "Cập nhật",
+  "cannotUndone": "Hành động này không thể được hoàn tác!!!",
+  "delete": "Xoá",
+  "cancel": "Huỷ bỏ",
+
+  "noFolderFound":"Chưa có thư mục. Hãy tạo thư mục mới!",
+  "folderName": "Tên thư mục",
+  "enterFolderName": "Nhập tên thư mục",
+  "folderNameIsEmpty": "Tên thư mục không được để trống",
+  "enterFolderDescription": "Mô tả chi tiết thư mục (không bắt buộc)",
+  "folderWithName": "Thư mục có tên là ",
+  "alreadyExist": " đã tồn tại."
 }

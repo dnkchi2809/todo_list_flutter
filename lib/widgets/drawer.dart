@@ -34,7 +34,7 @@ class DrawerWidget extends RecoilWidget {
           },
         ),
         ListTile(
-          title: const Text("Folders"),
+          title: Text(AppLocalizations.of(context)!.folders),
           onTap: () {
             Navigator.pop(context);
             menuSelected.setData('Folders');

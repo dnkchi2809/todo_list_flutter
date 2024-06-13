@@ -8,6 +8,7 @@ import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/models/task_model.dart';
 
 import '../states/status_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TasksScreen extends StatefulWidget {
   final RecoilNotifier statusSelected = useRecoilState(statusState);
@@ -77,9 +78,11 @@ class _TasksScreenState extends State<TasksScreen> {
             child: tasks.isNotEmpty
                 ? GridView.builder(
                     itemCount: tasks.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 5, // 4 columns
-                      crossAxisSpacing: 3.0, // Horizontal space between each item
+                      crossAxisSpacing:
+                          3.0, // Horizontal space between each item
                       mainAxisSpacing: 50.0, // Vertical space between each item
                     ),
                     itemBuilder: (context, index) {
@@ -89,8 +92,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           child: TaskModel(task: task));
                     },
                   )
-                : const Center(
-                    child: Text('There is no task found. Please create new task'),
+                : Center(
+                    child: Text(AppLocalizations.of(context)!.noTaskFound),
                   ),
           ),
         ),

@@ -1,4 +1,45 @@
 {
+  "language": "Tiếng Việt",
+
   "home": "Home",
-  "language": "Tiếng Việt"
+  "folders": "Folders",
+
+  "status": "Status: ",
+  "all": "All",
+  "todo": "Todo",
+  "inProgress": "In Progress",
+  "pending": "Pending",
+  "done": "Done",
+
+  "addNewTask": "Add new task",
+  "editTask": "Edit this task: ",
+  "deleteTask": "Delete this task: ",
+
+  "addNewFolder": "Add new folder",
+  "editFolder": "Edit this folder",
+  "deleteFolder": "Delete this folder: ",
+
+  "noTaskFound": "There is no task found. Please create new task!",
+  "taskTitle": "Task title",
+  "enterTaskTitle": "Enter task title",
+  "taskTitleIsEmpty": "Task title is not empty",
+  "description": "Description",
+  "enterTaskDescription": "Enter task description (optional)",
+  "deadline": "Deadline",
+  "selectFolder": "Select folder",
+  "selectStatus": "Select status",
+  "add": "Add",
+  "update": "Update",
+  "cannotUndone": "This action cannot be undone!!!",
+  "delete": "Delete",
+  "cancel": "Cancel",
+
+
+  "noFolderFound": "There is no folder found. Please create new folder!",
+  "folderName": "Folder name",
+  "enterFolderName": "Enter folder name",
+  "folderNameIsEmpty": "Folder name is not empty",
+  "enterFolderDescription": "Enter folder description (optional)",
+  "folderWithName": "Folder with the name ",
+  "alreadyExist": " already exists."
 }
