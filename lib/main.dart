@@ -11,7 +11,7 @@ import 'my_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeSharedPreferences();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 Future<void> initializeSharedPreferences() async {
@@ -28,5 +28,9 @@ Future<void> initializeSharedPreferences() async {
     folderList.add(jsonEncode(newFolder.toJson()));
 
     await prefs.setStringList('folders', folderList.cast<String>());
+  }
+
+  if (!prefs.containsKey('language')) {
+    await prefs.setString('folders', 'en');
   }
 }
