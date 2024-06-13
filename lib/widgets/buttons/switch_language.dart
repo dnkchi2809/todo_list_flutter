@@ -27,7 +27,6 @@ class _SwitchLanguageState extends State<SwitchLanguage> {
     languageAppbarSelected.data == 'en'
         ? languageAppbarSelected.setData('vi')
         : languageAppbarSelected.setData('en');
-    print(languageAppbarSelected.data);
   }
 
   @override

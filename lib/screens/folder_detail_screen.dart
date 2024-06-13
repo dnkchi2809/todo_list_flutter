@@ -35,7 +35,6 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
   void initState() {
     statusAppbarSelected = widget.statusSelected;
     folderDetailsSelected = widget.folderSelected.data;
-    print(folderDetailsSelected.name);
     super.initState();
     _initSharedPreferences();
     _startPolling();

@@ -38,7 +38,6 @@ class _EditFolderModalState extends State<EditFolderModal> {
   Future<void> editFolder() async {
     final String name = folderNameController.text;
     final String description = folderDescriptionController.text;
-    print(description);
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

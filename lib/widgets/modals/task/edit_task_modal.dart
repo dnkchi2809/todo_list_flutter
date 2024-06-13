@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../../classes/task.dart';
 import '../../../utils/get_today.dart';
@@ -48,12 +50,15 @@ class _EditTaskModalState extends State<EditTaskModal> {
     final String description = taskDescriptionController.text;
     final String updateDate = getToday();
 
+    final List updateTimes = currentTask.updateTimes;
+    print(updateTimes);
+
     var isValidTask = validateTask(name);
 
     if (!isValidTask) return;
 
     final updateTask = Task(currentTask.taskId, name, description, deadline!,
-        updateDate, selectedStatus!, selectedFolderId!);
+        updateDate, selectedStatus!, selectedFolderId!, updateTimes.add(updateDate));
 
     updateTaskList(updateTask);
 

@@ -14,7 +14,6 @@ class AppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(languageSelected.data);
     return MaterialApp(
       locale: Locale(languageSelected.data),
       home: Scaffold(

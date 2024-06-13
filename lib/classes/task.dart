@@ -6,6 +6,7 @@ class Task {
   final String createDate;
   final int status;
   final int folderId;
+  final List updateTimes;
 
   Task(
     this.taskId,
@@ -15,6 +16,7 @@ class Task {
     this.createDate,
     this.status,
     this.folderId,
+    this.updateTimes,
   );
 
   Map<String, dynamic> toJson() => {
@@ -24,7 +26,8 @@ class Task {
         'deadline': deadline,
         'createDate': createDate,
         'status': status,
-        'folderId': folderId
+        'folderId': folderId,
+        "updateTimes": updateTimes
       };
 
   static Task fromJson(Map<String, dynamic> json) => Task(
@@ -34,5 +37,6 @@ class Task {
       json['deadline'],
       json['createDate'],
       json['status'],
-      json['folderId']);
+      json['folderId'],
+      json['updateTimes']);
 }

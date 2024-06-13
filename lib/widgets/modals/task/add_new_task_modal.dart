@@ -54,7 +54,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     newTaskId = getNewTaskId(prefs);
 
     final newTask = Task(newTaskId, name, description, deadline!, createDate,
-        enumToStatusIndex(Status.Todo), selectedFolderId!);
+        enumToStatusIndex(Status.Todo), selectedFolderId!, [createDate]);
 
     updateTaskList(newTask);
 
