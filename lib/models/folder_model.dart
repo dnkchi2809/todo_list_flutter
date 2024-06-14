@@ -7,6 +7,7 @@ import 'package:todo_list_flutter/states/status_state.dart';
 import '../states/menu_state.dart';
 import '../widgets/modals/folder/delete_folder_modal.dart';
 import '../widgets/modals/folder/edit_folder_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FolderModel extends StatelessWidget {
   final Folder folder;
@@ -60,20 +61,24 @@ class FolderModel extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          folder.name,
+                          folder.folderId == 0
+                              ? AppLocalizations.of(context)!.defaultFolder
+                              : folder.name,
                           style: TextStyle(
                               color: Colors.blue.shade900,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          folder.description,
+                          folder.folderId == 0
+                              ? AppLocalizations.of(context)!.defaultFolderDescription
+                              : folder.description,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
                     ListTile(
                         title: Text(
-                      'Tasks: ${folder.taskIds.length}',
+                            "${AppLocalizations.of(context)!.tasks}: ${folder.taskIds.length}",
                       style: const TextStyle(fontSize: 12),
                     ))
                   ],

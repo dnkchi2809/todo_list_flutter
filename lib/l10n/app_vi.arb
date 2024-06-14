@@ -40,5 +40,13 @@
   "folderNameIsEmpty": "Tên thư mục không được để trống",
   "enterFolderDescription": "Mô tả chi tiết thư mục (không bắt buộc)",
   "folderWithName": "Thư mục có tên là ",
-  "alreadyExist": " đã tồn tại."
+  "alreadyExist": " đã tồn tại.",
+
+  "defaultFolder": "Thư mục mặc định",
+  "defaultFolderDescription": "Đây là thư mục mặc định",
+  "tasks": "Nhiệm vụ",
+  "cannotDelete": "Không thể xoá!",
+  "folderContain": "Thư mục vẫn còn",
+
+  "back": "Quay về"
 }

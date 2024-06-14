@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../classes/folder.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteFolderModal extends StatefulWidget {
   final Folder folderRequest;
@@ -25,7 +26,7 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
 
   void deleteFolder() async {
     removeInFolderList(currentFolder.folderId, context);
-    
+
     Navigator.pop(context);
   }
 
@@ -38,18 +39,19 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ModalTitle('Delete this folder: ${widget.folderRequest.name}'),
+            ModalTitle(AppLocalizations.of(context)!.deleteFolder +
+                widget.folderRequest.name.toString()),
             const SizedBox(height: 30),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.warning,
                   color: Colors.red,
                 ),
                 Text(
-                  'This action cannot be undone!!!',
-                  style: TextStyle(fontSize: 16),
+                  AppLocalizations.of(context)!.cannotUndone,
+                  style: const TextStyle(fontSize: 16),
                 ),
               ],
             ),
@@ -68,7 +70,7 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
                           foregroundColor: Colors.white,
                         ),
                         onPressed: deleteFolder,
-                        child: const Text('Delete'),
+                        child: Text(AppLocalizations.of(context)!.delete),
                       ),
                     ),
                   ),
@@ -84,7 +86,7 @@ class _DeleteFolderModalState extends State<DeleteFolderModal> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Cancel'),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditFolderModal extends StatefulWidget {
   final Folder folderRequest;
@@ -60,7 +61,7 @@ class _EditFolderModalState extends State<EditFolderModal> {
     //check inputName not empty
     if (inputName.toString().isEmpty) {
       setState(() {
-        _errorText = 'Folder name is not empty.';
+        _errorText = AppLocalizations.of(context)!.folderNameIsEmpty;
       });
       return false;
     }
@@ -77,7 +78,7 @@ class _EditFolderModalState extends State<EditFolderModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            const ModalTitle('Update folder'),
+            ModalTitle(AppLocalizations.of(context)!.editFolder),
             const SizedBox(height: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -87,10 +88,10 @@ class _EditFolderModalState extends State<EditFolderModal> {
                   child: TextField(
                     controller: folderNameController,
                     decoration: InputDecoration(
-                      labelText: 'Folder name',
+                      labelText: AppLocalizations.of(context)!.folderName,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: 'Enter folder name',
+                      hintText: AppLocalizations.of(context)!.enterFolderName,
                       errorText: _errorText,
                     ),
                     onChanged: (value) {
@@ -105,11 +106,11 @@ class _EditFolderModalState extends State<EditFolderModal> {
                   width: 600,
                   child: TextField(
                     controller: folderDescriptionController,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.description,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter folder description (optional)',
+                      border: const OutlineInputBorder(),
+                      hintText: AppLocalizations.of(context)!.enterFolderDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6,
@@ -131,7 +132,7 @@ class _EditFolderModalState extends State<EditFolderModal> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: editFolder,
-                            child: const Text('Update'),
+                            child: Text(AppLocalizations.of(context)!.update),
                           ),
                         ),
                       ),
@@ -147,7 +148,7 @@ class _EditFolderModalState extends State<EditFolderModal> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                         ),
                       ),

@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/task_model.dart';
 import '../states/status_state.dart';
@@ -75,26 +76,6 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
     });
   }
 
-  void onClickEdit(context) {
-    // showDialog<void>(
-    //   context: context,
-    //   useSafeArea: true,
-    //   builder: (BuildContext context) {
-    //     return EditFolderModal(folderRequest: folderDetailsSelected);
-    //   },
-    // );
-  }
-
-  void onClickDelete(context) {
-    // showDialog<void>(
-    //   context: context,
-    //   useSafeArea: true,
-    //   builder: (BuildContext context) {
-    //     return DeleteFolderModal(folderRequest: folderDetailsSelected);
-    //   },
-    // );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,9 +100,9 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
                         child: TaskModel(task: task));
                   },
                 )
-          :const Center(
+          :Center(
                   child: Text(
-                      'There is no task found. Please create new task'),
+                      AppLocalizations.of(context)!.noTaskFound),
                 ),
         ),
       ),

@@ -3,6 +3,7 @@ import '../../../classes/task.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../../utils/update_task_list.dart';
 import '../../modal_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteTaskModal extends StatefulWidget {
   final Task taskRequest;
@@ -41,15 +42,15 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ModalTitle('Delete this task: ${widget.taskRequest.name}'),
+            ModalTitle(AppLocalizations.of(context)!.deleteTask + widget.taskRequest.name),
             const SizedBox(height: 30),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.warning, color: Colors.red,),
+                const Icon(Icons.warning, color: Colors.red,),
                 Text(
-                  'This action cannot be undone!!!',
-                  style: TextStyle(fontSize: 16),
+                  AppLocalizations.of(context)!.cannotUndone,
+                  style: const TextStyle(fontSize: 16),
                 ),
               ],
             ),
@@ -68,7 +69,7 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
                           foregroundColor: Colors.white,
                         ),
                         onPressed: deleteTask,
-                        child: const Text('Delete'),
+                        child: Text(AppLocalizations.of(context)!.delete),
                       ),
                     ),
                   ),
@@ -84,7 +85,7 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Cancel'),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                     ),
                   ),

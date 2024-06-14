@@ -41,5 +41,13 @@
   "folderNameIsEmpty": "Folder name is not empty",
   "enterFolderDescription": "Enter folder description (optional)",
   "folderWithName": "Folder with the name ",
-  "alreadyExist": " already exists."
+  "alreadyExist": " already exists.",
+
+  "defaultFolder": "Default folder",
+  "defaultFolderDescription": "This is default folder",
+  "tasks": "Tasks",
+  "cannotDelete": "Cannot delete!",
+  "folderContain": "This folder still contains",
+
+  "back": "Back"
 }

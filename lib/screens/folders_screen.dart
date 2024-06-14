@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../classes/folder.dart';
 import '../widgets/hooks/folder_hook.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FoldersScreen extends StatefulWidget {
   const FoldersScreen({super.key});
@@ -79,7 +80,7 @@ class _FolderScreenState extends State<FoldersScreen> {
                         child: FolderHook(folder: folder));
                   },
                 )
-              : const Text('There is no folder found. Please create new folder'),
+              : Text(AppLocalizations.of(context)!.noFolderFound),
         ),
       ),
     );
