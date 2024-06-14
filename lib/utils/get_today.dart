@@ -6,3 +6,10 @@ String getToday() {
   final String createDate = formatter.format(today);
   return createDate;
 }
+
+String getCurrentTime() {
+  final DateTime today = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm:ss');
+  final String createDate = formatter.format(today);
+  return createDate;
+}

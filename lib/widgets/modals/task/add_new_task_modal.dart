@@ -44,6 +44,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     final String name = taskNameController.text;
     final String description = taskDescriptionController.text;
     final String createDate = getToday();
+    final List updateTimes = [getCurrentTime()];
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -54,7 +55,7 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
     newTaskId = getNewTaskId(prefs);
 
     final newTask = Task(newTaskId, name, description, deadline!, createDate,
-        enumToStatusIndex(Status.Todo), selectedFolderId!, [createDate]);
+        enumToStatusIndex(Status.Todo), selectedFolderId!, updateTimes);
 
     updateTaskList(newTask);
 
