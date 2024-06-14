@@ -1,5 +1,5 @@
 {
-  "language": "Tiếng Việt",
+  "language": "\uD83C\uDDEC\uD83C\uDDE7",
 
   "home": "Home",
   "folders": "Folders",
@@ -49,5 +49,7 @@
   "cannotDelete": "Cannot delete!",
   "folderContain": "This folder still contains",
 
-  "back": "Back"
+  "back": "Back",
+  "import": "Import",
+  "export": "Export"
 }

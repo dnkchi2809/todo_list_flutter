@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_recoil/flutter_recoil.dart';
 
 import '../classes/task.dart';
+import '../states/select_list_export.dart';
 import '../utils/status_by_locale.dart';
 import '../utils/status_extension.dart';
 import '../widgets/modals/task/delete_task_modal.dart';
@@ -12,19 +14,25 @@ import '../widgets/modals/task/edit_task_modal.dart';
 class TaskModel extends StatefulWidget {
   final Task task;
 
-  const TaskModel({super.key, required this.task});
+  final RecoilNotifier listSelected = useRecoilState(selectListExportState);
+
+  TaskModel({super.key, required this.task});
 
   @override
   _TaskModelState createState() => _TaskModelState();
 }
 
-class _TaskModelState extends State<TaskModel> with SingleTickerProviderStateMixin {
+class _TaskModelState extends State<TaskModel>
+    with SingleTickerProviderStateMixin {
   double _opacity = 0;
   double _scale = 0.8;
+  bool _isChecked = false; // State for the checkbox
+  late RecoilNotifier selectListExport;
 
   @override
   void initState() {
     super.initState();
+    selectListExport = widget.listSelected;
 
     // Trigger the animation on first display
     Timer(const Duration(milliseconds: 100), () {
@@ -53,6 +61,17 @@ class _TaskModelState extends State<TaskModel> with SingleTickerProviderStateMix
         return DeleteTaskModal(taskRequest: widget.task);
       },
     );
+  }
+
+  void _handleCheckboxChange(bool? value) {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+    // Here you can add additional logic to handle the checkbox state change
+    // For example, updating the task status or performing some action
+    // const add
+    // selectListExport.setData(widget.task);
+    // print(selectListExport);
   }
 
   @override
@@ -93,11 +112,21 @@ class _TaskModelState extends State<TaskModel> with SingleTickerProviderStateMix
                             children: [
                               Column(
                                 children: [
-                                  Text(
-                                    widget.task.name,
-                                    style: TextStyle(
-                                        color: Colors.blue.shade900,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          widget.task.name,
+                                          style: TextStyle(
+                                              color: Colors.blue.shade900,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Checkbox(
+                                          value: _isChecked,
+                                          onChanged: _handleCheckboxChange,
+                                          activeColor: Colors.blue),
+                                    ],
                                   ),
                                   Text(
                                     widget.task.description,
@@ -109,14 +138,16 @@ class _TaskModelState extends State<TaskModel> with SingleTickerProviderStateMix
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: colorFromStatus(widget.task.status),
+                                      color:
+                                          colorFromStatus(widget.task.status),
                                       shape: BoxShape.rectangle,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
                                       ),
                                     ),
                                     padding: const EdgeInsets.all(5),
-                                    child: Text(statusByLocale(context, getValueOfStatus(widget.task.status))),
+                                    child: Text(statusByLocale(context,
+                                        getValueOfStatus(widget.task.status))),
                                   ),
                                   const SizedBox(
                                     width: 10,

@@ -9,8 +9,8 @@ import 'package:todo_list_flutter/classes/task.dart';
 import 'package:todo_list_flutter/states/folder_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../models/task_model.dart';
 import '../states/status_state.dart';
+import '../widgets/hooks/task_model_hook.dart';
 
 class FolderDetailScreen extends StatefulWidget {
   final RecoilNotifier statusSelected = useRecoilState(statusState);
@@ -97,7 +97,7 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
                     final task = tasks[index];
                     return Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: TaskModel(task: task));
+                        child: TaskModelHook(task: task));
                   },
                 )
           :Center(

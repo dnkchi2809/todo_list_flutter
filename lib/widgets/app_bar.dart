@@ -5,6 +5,7 @@ import 'buttons/add_new_folder_button.dart';
 import 'buttons/add_new_task_button.dart';
 import 'hooks/back_button_hook.dart';
 import 'hooks/dropdown_status_hook.dart';
+import 'hooks/export_button_hook.dart';
 import 'hooks/switch_language_hook.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -25,6 +26,7 @@ class AppBarWidget extends StatelessWidget {
             SizedBox(width: 20),
             AddNewFolderButton(),
             SizedBox(width: 10),
+            ExportButtonHook(),
             SwitchLanguageHook(),
           ],
         ),

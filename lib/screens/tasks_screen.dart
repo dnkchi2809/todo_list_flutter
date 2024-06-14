@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/task.dart';
-import 'package:todo_list_flutter/models/task_model.dart';
 
 import '../states/status_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/hooks/task_model_hook.dart';
 
 class TasksScreen extends StatefulWidget {
   final RecoilNotifier statusSelected = useRecoilState(statusState);
@@ -89,7 +90,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 final task = tasks[index];
                 return Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: TaskModel(task: task));
+                    child: TaskModelHook(task: task));
               },
             )
                 : Center(

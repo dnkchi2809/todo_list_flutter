@@ -35,7 +35,7 @@ class _SwitchLanguageState extends State<SwitchLanguage> {
       onPressed: switchLanguage,
       child: Text(
         AppLocalizations.of(context)!.language,
-        style: TextStyle(color: Colors.blue, fontSize: 18),
+        style: TextStyle(color: Colors.blue, fontSize: 28),
       ),
     );
   }

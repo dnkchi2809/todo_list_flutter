@@ -1,5 +1,5 @@
 {
-  "language": "English",
+  "language": "\uD83C\uDDFB\uD83C\uDDF3",
 
   "home": "Trang chủ",
   "folders": "Thư mục",
@@ -48,5 +48,7 @@
   "cannotDelete": "Không thể xoá!",
   "folderContain": "Thư mục vẫn còn",
 
-  "back": "Quay về"
+  "back": "Quay về",
+  "import": "Nhập file",
+  "export": "Xuất file"
 }
