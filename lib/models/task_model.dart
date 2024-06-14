@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
@@ -67,11 +66,19 @@ class _TaskModelState extends State<TaskModel>
     setState(() {
       _isChecked = value ?? false;
     });
-    // Here you can add additional logic to handle the checkbox state change
-    // For example, updating the task status or performing some action
-    // const add
-    // selectListExport.setData(widget.task);
-    // print(selectListExport);
+
+    List currentList = selectListExport.data;
+
+    if (_isChecked) {
+      currentList.add(widget.task);
+    } else {
+      currentList = currentList
+          .map((task) => task.toJson())
+          .map((taskJson) => Task.fromJson(taskJson))
+          .where((task) => task.taskId != widget.task.taskId)
+          .toList();
+    }
+    selectListExport.setData(currentList);
   }
 
   @override

@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/modals/message/show_message.dart';
+
 Future<void> updateFolderList(Folder newFolder) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -73,14 +75,10 @@ void removeInFolderList(currentFolderId, context) async {
 
     if (taskId == currentFolderId) {
       if (folderMap['taskIds'].length > 0) {
-        ScaffoldMessenger.of(context)
-          ..removeCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Text(
-                "${AppLocalizations.of(context)!.cannotDelete} ${AppLocalizations.of(context)!.folderContain} ${folderMap['taskIds'].length} ${AppLocalizations.of(context)!.tasks.toLowerCase()}"),
-            backgroundColor: Colors.red,
-            duration: const Duration(milliseconds: 2000),
-          ));
+        showMessage(
+            context,
+            "${AppLocalizations.of(context)!.cannotDelete} ${AppLocalizations.of(context)!.folderContain} ${folderMap['taskIds'].length} ${AppLocalizations.of(context)!.tasks.toLowerCase()}",
+            Colors.red);
       } else {
         folderList.removeAt(i);
 

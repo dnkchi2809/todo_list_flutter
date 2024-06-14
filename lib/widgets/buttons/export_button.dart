@@ -3,6 +3,7 @@ import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../states/select_list_export.dart';
+import '../../utils/export_to_csv.dart';
 
 class ExportButton extends RecoilWidget {
   final exportList = useRecoilState(selectListExportState);
@@ -15,7 +16,7 @@ class ExportButton extends RecoilWidget {
       // visible: currentMenuState.data == "Detail",
       child: TextButton(
         onPressed: () {
-          print(exportList.data);
+          exportToCsv(context, exportList.data);
         },
         child: Text(
           AppLocalizations.of(context)!.export,
