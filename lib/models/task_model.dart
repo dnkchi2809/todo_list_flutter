@@ -59,10 +59,10 @@ class _TaskModelState extends State<TaskModel> with SingleTickerProviderStateMix
     return GestureDetector(
       onTap: () => onClickEdit(context),
       child: AnimatedOpacity(
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: 300),
         opacity: _opacity,
         child: AnimatedScale(
-          duration: const Duration(seconds: 1),
+          duration: const Duration(milliseconds: 300),
           scale: _scale,
           child: Container(
             color: Colors.white,
