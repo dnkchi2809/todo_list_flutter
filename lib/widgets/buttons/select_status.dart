@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../const.dart';
+import '../../utils/status_by_locale.dart';
 import '../../utils/status_extension.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectStatus extends StatefulWidget {
   final int status;
@@ -39,24 +39,7 @@ class _SelectStatusState extends State<SelectStatus> {
       },
       dropdownMenuEntries:
           selectStatusList.map<DropdownMenuEntry<String>>((String status) {
-            String valueByLocale;
-            switch (status){
-              case "To do":
-                valueByLocale = AppLocalizations.of(context)!.toDo;
-                break;
-              case "In progress":
-                valueByLocale = AppLocalizations.of(context)!.inProgress;
-                break;
-              case "Pending":
-                valueByLocale = AppLocalizations.of(context)!.pending;
-                break;
-              case "Done":
-                valueByLocale = AppLocalizations.of(context)!.done;
-                break;
-              default:
-                valueByLocale = AppLocalizations.of(context)!.all;
-                break;
-            }
+            String valueByLocale = statusByLocale(context, status);
             return DropdownMenuEntry<String>(value: status, label: valueByLocale);
       }).toList(),
     );
