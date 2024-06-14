@@ -39,7 +39,6 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
     super.initState();
     _initSharedPreferences();
     _startPolling();
-
   }
 
   @override
@@ -61,13 +60,12 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
         tasks = storedTasks
             .map((folderJson) => Task.fromJson(jsonDecode(folderJson)))
             .where((task) =>
-        task.folderId == folderDetailsSelected.folderId &&
-        (statusAppbarSelected.data == 0 ||
-            task.status == statusAppbarSelected.data))
+                task.folderId == folderDetailsSelected.folderId &&
+                (statusAppbarSelected.data == 0 ||
+                    task.status == statusAppbarSelected.data))
             .toList();
       }
     });
-
   }
 
   void _startPolling() {
@@ -85,13 +83,10 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
           child: tasks.isNotEmpty
               ? GridView.builder(
                   itemCount: tasks.length,
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 5, // 4 columns
-                    crossAxisSpacing:
-                        3.0, // Horizontal space between each item
-                    mainAxisSpacing:
-                        4.0, // Vertical space between each item
+                    crossAxisSpacing: 3.0, // Horizontal space between each item
+                    mainAxisSpacing: 4.0, // Vertical space between each item
                   ),
                   itemBuilder: (context, index) {
                     final task = tasks[index];
@@ -100,9 +95,8 @@ class _FolderDetailScreenState extends State<FolderDetailScreen> {
                         child: TaskModelHook(task: task));
                   },
                 )
-          :Center(
-                  child: Text(
-                      AppLocalizations.of(context)!.noTaskFound),
+              : Center(
+                  child: Text(AppLocalizations.of(context)!.noTaskFound),
                 ),
         ),
       ),

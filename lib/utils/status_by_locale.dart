@@ -1,8 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-String statusByLocale(context, String value){
+String statusByLocale(context, String value) {
   String valueByLocale;
-  switch (value){
+  switch (value) {
     case "To do":
       valueByLocale = AppLocalizations.of(context)!.toDo;
       break;

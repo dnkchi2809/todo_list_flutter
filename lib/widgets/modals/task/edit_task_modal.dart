@@ -24,7 +24,7 @@ class _EditTaskModalState extends State<EditTaskModal> {
   late Task currentTask;
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
-  TextEditingController();
+      TextEditingController();
 
   String? _errorText;
 
@@ -59,7 +59,8 @@ class _EditTaskModalState extends State<EditTaskModal> {
 
     updateTaskList(updateTask);
 
-    updateTaskIdInFolderList(currentTask.folderId, selectedFolderId, currentTask.taskId);
+    updateTaskIdInFolderList(
+        currentTask.folderId, selectedFolderId, currentTask.taskId);
 
     Navigator.pop(context);
   }
@@ -111,7 +112,8 @@ class _EditTaskModalState extends State<EditTaskModal> {
                       label: Text(AppLocalizations.of(context)!.description),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: AppLocalizations.of(context)!.enterTaskDescription,
+                      hintText:
+                          AppLocalizations.of(context)!.enterTaskDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6, // Set this

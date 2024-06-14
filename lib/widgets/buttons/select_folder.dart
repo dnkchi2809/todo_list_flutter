@@ -9,7 +9,8 @@ class SelectFolder extends StatefulWidget {
   final int folderId;
   final Function(int) onSelectFolder;
 
-  const SelectFolder({super.key, required this.onSelectFolder, required this.folderId});
+  const SelectFolder(
+      {super.key, required this.onSelectFolder, required this.folderId});
 
   @override
   State<SelectFolder> createState() => _SelectFolderState();
@@ -37,7 +38,8 @@ class _SelectFolderState extends State<SelectFolder> {
     return FutureBuilder(
         future: _folderListFuture,
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-          if (!snapshot.hasData || snapshot.data!.isEmpty) return const Text('No folder found');
+          if (!snapshot.hasData || snapshot.data!.isEmpty)
+            return const Text('No folder found');
 
           final List<Folder> folderList = snapshot.data!
               .map((folderJson) => Folder.fromJson(jsonDecode(folderJson)))
@@ -46,7 +48,7 @@ class _SelectFolderState extends State<SelectFolder> {
           var initialFolderName;
 
           for (var entry in folderList.asMap().entries) {
-            if(entry.value.folderId == currentFolderId){
+            if (entry.value.folderId == currentFolderId) {
               initialFolderName = entry.value.name;
             }
           }
@@ -54,8 +56,10 @@ class _SelectFolderState extends State<SelectFolder> {
           return DropdownMenu<String>(
             initialSelection: initialFolderName,
             onSelected: (String? value) {
-              final selectedFolder = folderList.firstWhere((folder) => folder.name == value);
-              widget.onSelectFolder(selectedFolder.folderId); // Call callback function with folderId
+              final selectedFolder =
+                  folderList.firstWhere((folder) => folder.name == value);
+              widget.onSelectFolder(selectedFolder
+                  .folderId); // Call callback function with folderId
 
               setState(() {
                 dropdownValue = value!;

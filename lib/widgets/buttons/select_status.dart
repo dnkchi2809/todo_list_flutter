@@ -39,8 +39,8 @@ class _SelectStatusState extends State<SelectStatus> {
       },
       dropdownMenuEntries:
           selectStatusList.map<DropdownMenuEntry<String>>((String status) {
-            String valueByLocale = statusByLocale(context, status);
-            return DropdownMenuEntry<String>(value: status, label: valueByLocale);
+        String valueByLocale = statusByLocale(context, status);
+        return DropdownMenuEntry<String>(value: status, label: valueByLocale);
       }).toList(),
     );
   }

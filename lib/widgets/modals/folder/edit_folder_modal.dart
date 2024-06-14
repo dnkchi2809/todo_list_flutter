@@ -110,7 +110,8 @@ class _EditFolderModalState extends State<EditFolderModal> {
                       labelText: AppLocalizations.of(context)!.description,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: AppLocalizations.of(context)!.enterFolderDescription,
+                      hintText:
+                          AppLocalizations.of(context)!.enterFolderDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6,

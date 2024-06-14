@@ -20,8 +20,8 @@ class ExportButton extends RecoilWidget {
       child: TextButton(
         onPressed: () {
           if (exportList.data.isEmpty) {
-            showMessage(
-                context, AppLocalizations.of(context)!.haveNotSelectTask, Colors.orange);
+            showMessage(context,
+                AppLocalizations.of(context)!.haveNotSelectTask, Colors.orange);
           } else {
             exportToCsv(context, exportList.data);
           }

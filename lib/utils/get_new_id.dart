@@ -16,7 +16,7 @@ int getNewTaskId(prefs) {
   }
 }
 
-int getNewFolderId(prefs){
+int getNewFolderId(prefs) {
   List<String>? folderList = prefs.getStringList('folders');
   folderList = folderList ?? [];
 
@@ -24,7 +24,7 @@ int getNewFolderId(prefs){
     return 0;
   } else {
     var lastFolder =
-    Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
+        Folder.fromJson(jsonDecode(folderList[folderList.length - 1]));
     var lastFolderIdInList = lastFolder.folderId;
     return lastFolderIdInList + 1;
   }

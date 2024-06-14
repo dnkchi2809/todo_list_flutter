@@ -70,7 +70,8 @@ class FolderModel extends StatelessWidget {
                         ),
                         Text(
                           folder.folderId == 0
-                              ? AppLocalizations.of(context)!.defaultFolderDescription
+                              ? AppLocalizations.of(context)!
+                                  .defaultFolderDescription
                               : folder.description,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -78,7 +79,7 @@ class FolderModel extends StatelessWidget {
                     ),
                     ListTile(
                         title: Text(
-                            "${AppLocalizations.of(context)!.tasks}: ${folder.taskIds.length}",
+                      "${AppLocalizations.of(context)!.tasks}: ${folder.taskIds.length}",
                       style: const TextStyle(fontSize: 12),
                     ))
                   ],

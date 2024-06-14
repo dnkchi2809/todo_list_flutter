@@ -15,7 +15,7 @@ class BodyContent extends RecoilWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (menuSelected.data){
+    switch (menuSelected.data) {
       case "Folders":
         return const FoldersScreen();
       case "Detail":

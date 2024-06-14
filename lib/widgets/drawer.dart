@@ -18,34 +18,34 @@ class DrawerWidget extends RecoilWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: ListView(
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Center(
-                  child: Text(
-                    "Todo List Flutter",
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  )),
-            ),
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.home),
-              onTap: () {
-                Navigator.pop(context);
-                menuSelected.setData('Home');
-                statusSelected.setData(0);
-                selectListExport.setData([]);
-              },
-            ),
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.folders),
-              onTap: () {
-                Navigator.pop(context);
-                menuSelected.setData('Folders');
-                statusSelected.setData(0);
-                selectListExport.setData([]);
-              },
-            ),
-          ],
-        ));
+      children: <Widget>[
+        const DrawerHeader(
+          decoration: BoxDecoration(color: Colors.blue),
+          child: Center(
+              child: Text(
+            "Todo List Flutter",
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          )),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.home),
+          onTap: () {
+            Navigator.pop(context);
+            menuSelected.setData('Home');
+            statusSelected.setData(0);
+            selectListExport.setData([]);
+          },
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.folders),
+          onTap: () {
+            Navigator.pop(context);
+            menuSelected.setData('Folders');
+            statusSelected.setData(0);
+            selectListExport.setData([]);
+          },
+        ),
+      ],
+    ));
   }
 }

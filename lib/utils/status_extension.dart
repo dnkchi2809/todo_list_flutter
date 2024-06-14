@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/const.dart';
 
-String enumToStatusValue (Status statusEnum){
+String enumToStatusValue(Status statusEnum) {
   switch (statusEnum) {
     case Status.Todo:
       return 'Todo';
@@ -18,7 +18,7 @@ String enumToStatusValue (Status statusEnum){
   }
 }
 
-int enumToStatusIndex (Status statusEnum){
+int enumToStatusIndex(Status statusEnum) {
   switch (statusEnum) {
     case Status.Todo:
       return 1;
@@ -32,7 +32,6 @@ int enumToStatusIndex (Status statusEnum){
       return 0;
   }
 }
-
 
 int getIndexOfStatus(String status) {
   return StatusList.indexOf(status);

@@ -42,12 +42,16 @@ class _DeleteTaskModalState extends State<DeleteTaskModal> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ModalTitle(AppLocalizations.of(context)!.deleteTask + widget.taskRequest.name),
+            ModalTitle(AppLocalizations.of(context)!.deleteTask +
+                widget.taskRequest.name),
             const SizedBox(height: 30),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.warning, color: Colors.red,),
+                const Icon(
+                  Icons.warning,
+                  color: Colors.red,
+                ),
                 Text(
                   AppLocalizations.of(context)!.cannotUndone,
                   style: const TextStyle(fontSize: 16),

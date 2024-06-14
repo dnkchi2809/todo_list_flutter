@@ -19,7 +19,7 @@ class AddNewFolderModal extends StatefulWidget {
 class _AddNewFolderModalState extends State<AddNewFolderModal> {
   final TextEditingController folderNameController = TextEditingController();
   final TextEditingController folderDescriptionController =
-  TextEditingController();
+      TextEditingController();
 
   String? _errorText;
 
@@ -61,7 +61,9 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
       Folder folder = Folder.fromJson(jsonDecode(folderJson));
       if (folder.name == inputName) {
         setState(() {
-          _errorText = AppLocalizations.of(context)!.folderWithName + inputName +  AppLocalizations.of(context)!.alreadyExist;
+          _errorText = AppLocalizations.of(context)!.folderWithName +
+              inputName +
+              AppLocalizations.of(context)!.alreadyExist;
         });
         return false;
       }
@@ -111,7 +113,8 @@ class _AddNewFolderModalState extends State<AddNewFolderModal> {
                       labelText: AppLocalizations.of(context)!.description,
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: AppLocalizations.of(context)!.enterFolderDescription,
+                      hintText:
+                          AppLocalizations.of(context)!.enterFolderDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6,

@@ -32,8 +32,9 @@ class DropdownStatusButton extends RecoilWidget {
           borderRadius: BorderRadius.circular(15),
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           onChanged: (String? value) {
-            statusSelected
-                .setData(value!.isNotEmpty ? getIndexOfStatus(value) : statusSelected.data);
+            statusSelected.setData(value!.isNotEmpty
+                ? getIndexOfStatus(value)
+                : statusSelected.data);
           },
           items: StatusList.map<DropdownMenuItem<String>>((String value) {
             String valueByLocale = statusByLocale(context, value);

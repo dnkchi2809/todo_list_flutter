@@ -24,7 +24,7 @@ class AddNewTaskModal extends StatefulWidget {
 class _AddNewTaskModalState extends State<AddNewTaskModal> {
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
-  TextEditingController();
+      TextEditingController();
 
   String? _errorText;
 
@@ -111,7 +111,8 @@ class _AddNewTaskModalState extends State<AddNewTaskModal> {
                       label: Text(AppLocalizations.of(context)!.description),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: const OutlineInputBorder(),
-                      hintText: AppLocalizations.of(context)!.enterTaskDescription,
+                      hintText:
+                          AppLocalizations.of(context)!.enterTaskDescription,
                     ),
                     keyboardType: TextInputType.multiline,
                     minLines: 6, // Set this

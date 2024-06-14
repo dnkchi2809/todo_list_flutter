@@ -20,7 +20,10 @@ class BackButtonInDetailScreen extends RecoilWidget {
           currentMenuState.setData('Folders');
           selectListExport.setData([]);
         },
-        icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.blue,),
+        icon: const Icon(
+          Icons.arrow_back_ios_new_outlined,
+          color: Colors.blue,
+        ),
         label: Text(
           AppLocalizations.of(context)!.back,
           style: TextStyle(color: Colors.blue, fontSize: 18),

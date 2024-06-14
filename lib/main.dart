@@ -21,11 +21,8 @@ Future<void> initializeSharedPreferences() async {
   if (!prefs.containsKey('folders')) {
     List<String>? folderList = [];
 
-    final newFolder = Folder(
-        0,
-        'Default folder',
-        'This is a default folder',
-        []);
+    final newFolder =
+        Folder(0, 'Default folder', 'This is a default folder', []);
     folderList.add(jsonEncode(newFolder.toJson()));
 
     await prefs.setStringList('folders', folderList.cast<String>());

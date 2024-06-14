@@ -24,8 +24,7 @@ Future<void> updateTaskList(Task newTask) async {
   await prefs.setStringList('tasks', taskList);
 }
 
-
-void removeInTaskList (currentTaskId) async {
+void removeInTaskList(currentTaskId) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   List<String>? taskList = prefs.getStringList('tasks');
@@ -36,7 +35,7 @@ void removeInTaskList (currentTaskId) async {
     final taskMap = jsonDecode(taskJson);
     final taskId = taskMap['taskId'];
 
-    if(taskId == currentTaskId){
+    if (taskId == currentTaskId) {
       taskList.removeAt(i);
     }
   }

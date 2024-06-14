@@ -33,8 +33,6 @@ class ImportButton extends StatelessWidget {
 
       print(table.length);
 
-
-
       for (var i = 1; i < table.length; i++) {
         var row = table[i];
 

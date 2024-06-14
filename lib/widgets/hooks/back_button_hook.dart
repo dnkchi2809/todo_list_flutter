@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_recoil/flutter_recoil.dart';
 import '../buttons/back_button.dart';
 
-class BackButtonHook extends RecoilWidget{
+class BackButtonHook extends RecoilWidget {
   const BackButtonHook({super.key});
 
   @override
