@@ -51,5 +51,10 @@
 
   "back": "Back",
   "import": "Import",
-  "export": "Export"
+  "export": "Export",
+
+  "haveNotSelectTask": "You have not select any tasks",
+  "selectSavePlace": "Please choose where to save the file",
+  "theFileIsNotSaved": "The file has not been saved yet",
+  "csvFileSaveTo": "CSV file saved to"
 }

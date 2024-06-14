@@ -50,5 +50,10 @@
 
   "back": "Quay về",
   "import": "Nhập file",
-  "export": "Xuất file"
+  "export": "Xuất file",
+
+  "haveNotSelectTask": "Bạn chưa chọn nhiệm vụ nào",
+  "selectSavePlace": "Vui lòng chọn nơi lưu file",
+  "theFileIsNotSaved": "Tệp vẫn chưa được lưu",
+  "csvFileSaveTo": "Tệp CSV đã được lưu vào"
 }

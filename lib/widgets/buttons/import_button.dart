@@ -56,16 +56,13 @@ class ImportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      // visible: currentMenuState.data == "Detail",
-      child: TextButton(
-        onPressed: () {
-          _pickFile();
-        },
-        child: Text(
-          AppLocalizations.of(context)!.import,
-          style: TextStyle(color: Colors.blue, fontSize: 18),
-        ),
+    return TextButton(
+      onPressed: () {
+        _pickFile();
+      },
+      child: Text(
+        AppLocalizations.of(context)!.import,
+        style: TextStyle(color: Colors.blue, fontSize: 16),
       ),
     );
   }

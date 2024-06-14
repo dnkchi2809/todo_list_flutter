@@ -3,8 +3,11 @@ import 'package:flutter_recoil/flutter_recoil.dart';
 import 'package:todo_list_flutter/states/menu_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../states/select_list_export.dart';
+
 class BackButtonInDetailScreen extends RecoilWidget {
   final currentMenuState = useRecoilState(menuState);
+  final selectListExport = useRecoilState(selectListExportState);
 
   BackButtonInDetailScreen({super.key});
 
@@ -15,6 +18,7 @@ class BackButtonInDetailScreen extends RecoilWidget {
       child: TextButton.icon(
         onPressed: () {
           currentMenuState.setData('Folders');
+          selectListExport.setData([]);
         },
         icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.blue,),
         label: Text(
