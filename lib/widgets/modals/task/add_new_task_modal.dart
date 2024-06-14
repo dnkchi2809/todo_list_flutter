@@ -9,7 +9,7 @@ import '../../../utils/status_extension.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../buttons/date_picker.dart';
 import '../../buttons/select_folder.dart';
-import '../../modal_title.dart';
+import '../modal_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewTaskModal extends StatefulWidget {

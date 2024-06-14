@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_flutter/classes/folder.dart';
 import '../../../utils/update_folder_list.dart';
-import '../../modal_title.dart';
+import '../modal_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditFolderModal extends StatefulWidget {

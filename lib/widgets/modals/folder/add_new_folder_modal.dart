@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../classes/folder.dart';
 import '../../../utils/get_new_id.dart';
 import '../../../utils/update_folder_list.dart';
-import '../../modal_title.dart';
+import '../modal_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewFolderModal extends StatefulWidget {

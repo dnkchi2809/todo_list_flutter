@@ -6,7 +6,7 @@ import '../../../utils/update_task_list.dart';
 import '../../buttons/date_picker.dart';
 import '../../buttons/select_folder.dart';
 import '../../buttons/select_status.dart';
-import '../../modal_title.dart';
+import '../modal_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditTaskModal extends StatefulWidget {

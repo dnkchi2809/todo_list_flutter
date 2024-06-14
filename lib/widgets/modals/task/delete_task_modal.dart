@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../classes/task.dart';
 import '../../../utils/update_folder_list.dart';
 import '../../../utils/update_task_list.dart';
-import '../../modal_title.dart';
+import '../modal_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteTaskModal extends StatefulWidget {

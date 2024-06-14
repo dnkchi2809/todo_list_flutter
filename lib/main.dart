@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'classes/folder.dart';
-import 'my_app.dart';
+import 'widgets/my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

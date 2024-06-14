@@ -31,13 +31,18 @@ class ImportButton extends StatelessWidget {
           .transform(CsvToListConverter())
           .toList();
 
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(table.length);
+
+
 
       for (var i = 1; i < table.length; i++) {
         var row = table[i];
 
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        int newTaskId = getNewTaskId(prefs);
+
         Task newTask = Task(
-          getNewTaskId(prefs),
+          newTaskId,
           row[1] as String,
           row[2] as String,
           row[3] as String,
@@ -49,7 +54,7 @@ class ImportButton extends StatelessWidget {
 
         updateTaskList(newTask);
 
-        updateTaskIdInFolderList(0, newTask.folderId, newTask.taskId);
+        updateTaskIdInFolderList(0, newTask.folderId, newTaskId);
       }
     }
   }
